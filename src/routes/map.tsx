@@ -1,8 +1,11 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/lib/language";
 import { getCaptureCopy, getMapCopy } from "@/lib/agentCopy";
+import { saveTutor } from "@/lib/tutors";
 
 export const Route = createFileRoute("/map")({
   head: () => ({
@@ -39,6 +42,14 @@ function MapPage() {
   const capture = getCaptureCopy(language.code);
   const map = getMapCopy(language.code);
   const [confirmed, setConfirmed] = useState(false);
+  const [tutorName, setTutorName] = useState("");
+  const navigate = useNavigate();
+
+  const createTutor = () => {
+    const tutor = saveTutor(tutorName, language.code);
+    if (!tutor) return;
+    void navigate({ to: "/teach", search: { tutor: tutor.id } });
+  };
 
   const steps: Step[] = [
     {
@@ -181,22 +192,38 @@ function MapPage() {
                     <p className="flex items-center gap-2 text-[13px] text-electric">
                       <span className="h-2 w-2 rounded-full bg-electric" /> {map.confirm}
                     </p>
-                    <Link
-                      to="/teach"
-                      className="group relative block overflow-hidden rounded-full bg-white px-5 py-3 text-center text-sm font-bold text-ink"
+                    <label className="block">
+                      <span className="mb-2 block text-[10px] uppercase tracking-[0.2em] text-white/45">
+                        Give your tutor a name
+                      </span>
+                      <Input
+                        value={tutorName}
+                        onChange={(event) => setTutorName(event.target.value)}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter") createTutor();
+                        }}
+                        placeholder="e.g. Invoice Navigator"
+                        maxLength={40}
+                        className="h-11 rounded-lg bg-ink/60"
+                      />
+                    </label>
+                    <Button
+                      onClick={createTutor}
+                      disabled={!tutorName.trim()}
+                      className="group relative h-11 w-full overflow-hidden rounded-full font-bold"
                     >
-                      <span className="relative z-10">Turn it into a tutor →</span>
-                      <span className="sheen absolute inset-0 z-0 w-1/2 bg-gradient-to-r from-transparent via-electric/40 to-transparent" />
-                    </Link>
+                      <span className="relative z-10">Create tutor →</span>
+                      <span className="sheen absolute inset-0 z-0 w-1/2 bg-gradient-to-r from-transparent via-foreground/40 to-transparent" />
+                    </Button>
                   </div>
                 ) : (
-                  <button
+                  <Button
                     onClick={() => setConfirmed(true)}
-                    className="group relative block w-full overflow-hidden rounded-full bg-electric px-5 py-3 text-sm font-bold text-ink shadow-[0_0_34px_-6px_rgba(0,229,255,0.7)]"
+                    className="group relative h-11 w-full overflow-hidden rounded-full font-bold"
                   >
                     <span className="relative z-10">Confirm teach-back</span>
                     <span className="sheen absolute inset-0 z-0 w-1/2 bg-gradient-to-r from-transparent via-white/50 to-transparent" />
-                  </button>
+                  </Button>
                 )}
               </div>
             </GlassPanel>

@@ -114,6 +114,21 @@ const capture: Record<string, CaptureCopy> = {
     ],
     events: ["fatura 4471 aberta", "centro de custos 4711 → 0400", "valor €12.400 lido"],
   },
+  zh: {
+    agentName: "Mira · 语音助手",
+    status: "正在聆听",
+    questions: [
+      "我看到你打开了发票 4471，为什么先处理这一张？",
+      "你把成本中心从 4711 改为 0400，原因是什么？",
+      "金额是 €12,400。达到什么限额时你会暂停并请示他人？",
+    ],
+    answers: [
+      "这是这一批中最早的一张，周五到期。",
+      "本季度由市场部负责这家供应商的合同。",
+      "任何超过 €10,000 的款项，我都会先请经理确认。",
+    ],
+    events: ["已打开发票 4471", "成本中心 4711 → 0400", "已读取金额 €12,400"],
+  },
 };
 
 const map: Record<string, MapCopy> = {
@@ -177,6 +192,16 @@ const map: Record<string, MapCopy> = {
       "Então o processo é: abrir primeiro a fatura mais antiga, lançá-la no centro de custos que detém o contrato do fornecedor, e parar para perguntar ao gerente sempre que o valor passar de €10.000. Entendi certo?",
     confirm: "Confirmado — é exatamente assim que eu faço.",
   },
+  zh: {
+    debriefQuestions: [
+      "什么情况下你会拒绝发票 4471，而不是将其入账？",
+      "金额超过 €10,000 时，你会请示谁？",
+      "点击保存之前，你会检查什么？",
+    ],
+    teachBack:
+      "流程是：先打开最早的发票，将其记入负责供应商合同的成本中心；金额超过 €10,000 时，暂停并请经理确认。我的理解正确吗？",
+    confirm: "已确认，这正是我的处理方式。",
+  },
 };
 
 const teach: Record<string, TeachCopy> = {
@@ -239,6 +264,16 @@ const teach: Record<string, TeachCopy> = {
     guardrailAlert:
       "Risco de guardrail: €12.400 está acima de €10.000. O especialista sempre pergunta ao gerente primeiro — reproduza o momento de tela dele antes de salvar.",
     masteryNote: "A atenção aos guardrails precisa de uma segunda passada.",
+  },
+  zh: {
+    coaching: [
+      "很好，你像专家一样先打开了最早的发票。",
+      "保存前，请判断哪个成本中心负责这家供应商的合同。",
+      "请暂停，金额是 €12,400。专家对限额是怎么说的？",
+    ],
+    guardrailAlert:
+      "触发规则：€12,400 超过 €10,000。专家会先请经理确认，请在保存前回看对应的屏幕片段。",
+    masteryNote: "还需要再练习一次限额规则。",
   },
 };
 
