@@ -30,13 +30,15 @@ interface LanguageContextValue {
   setLanguage: (code: string) => void;
 }
 
+const DEFAULT_LANGUAGE = LANGUAGES[0]!;
+
 const LanguageContext = createContext<LanguageContextValue>({
-  language: LANGUAGES[0],
+  language: DEFAULT_LANGUAGE,
   setLanguage: () => {},
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<AgentLanguage>(LANGUAGES[0]);
+  const [language, setLanguageState] = useState<AgentLanguage>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);

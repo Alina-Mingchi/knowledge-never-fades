@@ -44,28 +44,28 @@ function MapPage() {
     {
       time: "00:04",
       kind: "step",
-      title: capture.events[0],
+      title: capture.events[0] ?? "",
       decision: "Open the oldest invoice in the batch first",
-      reason: capture.answers[0],
+      reason: capture.answers[0] ?? "",
     },
     {
       time: "00:41",
       kind: "decision",
-      title: capture.events[1],
+      title: capture.events[1] ?? "",
       decision: "Book to the cost center that owns the vendor contract",
-      reason: capture.answers[1],
+      reason: capture.answers[1] ?? "",
     },
     {
       time: "01:12",
       kind: "guardrail",
-      title: capture.events[2],
+      title: capture.events[2] ?? "",
       decision: "Pause before saving — escalate to the manager",
-      reason: capture.answers[2],
+      reason: capture.answers[2] ?? "",
       guardrail: "Stop & ask if amount > €10,000",
     },
   ];
   const [active, setActive] = useState(0);
-  const s = steps[active];
+  const s = steps[active] ?? steps[0]!;
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-ink font-body text-white">
