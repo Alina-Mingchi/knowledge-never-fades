@@ -48,7 +48,7 @@ function MapPage() {
   const createTutor = () => {
     const tutor = saveTutor(tutorName, language.code);
     if (!tutor) return;
-    void navigate({ to: "/teach", search: { tutor: tutor.id } });
+    void navigate({ to: "/teach" });
   };
 
   const steps: Step[] = [
@@ -99,7 +99,7 @@ function MapPage() {
         <div className="enter-up" style={{ animationDelay: "0.06s" }}>
           <div className="relative grid gap-4 md:grid-cols-3">
             <div
-              className="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-electric/60 via-indigo-400/40 to-fuchsia-400/60 md:block"
+              className="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-electric/60 via-primary/40 to-accent/60 md:block"
               aria-hidden="true"
             />
             {steps.map((st, i) => {

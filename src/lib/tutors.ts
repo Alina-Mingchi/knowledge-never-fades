@@ -13,6 +13,7 @@ export const DEFAULT_TUTOR: Tutor = {
 };
 
 const STORAGE_KEY = "knf-tutors";
+const SELECTED_STORAGE_KEY = "knf-selected-tutor";
 
 export function normalizeTutorName(name: string) {
   return name.trim().replace(/\s+/g, " ");
@@ -58,5 +59,19 @@ export function saveTutor(
     createdAt: now,
   };
   target.setItem(STORAGE_KEY, JSON.stringify([...getTutors(target), tutor]));
+  target.setItem(SELECTED_STORAGE_KEY, tutor.id);
   return tutor;
+}
+
+export function getSelectedTutorId(storage?: Pick<Storage, "getItem">) {
+  const target = storage ?? (typeof window === "undefined" ? undefined : window.localStorage);
+  return target?.getItem(SELECTED_STORAGE_KEY) ?? DEFAULT_TUTOR.id;
+}
+
+export function setSelectedTutorId(
+  id: string,
+  storage?: Pick<Storage, "setItem">,
+) {
+  const target = storage ?? (typeof window === "undefined" ? undefined : window.localStorage);
+  target?.setItem(SELECTED_STORAGE_KEY, id);
 }

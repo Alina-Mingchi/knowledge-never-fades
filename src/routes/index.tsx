@@ -39,7 +39,7 @@ function Index() {
           {/* Left: headline + picker */}
           <div className="relative lg:col-span-7">
             <div
-              className="absolute -top-8 -left-6 h-40 w-40 rotate-45 rounded-3xl bg-gradient-to-br from-electric/20 to-indigo-500/10 outline-1 outline-electric/20 drift-b"
+              className="absolute -top-8 -left-6 h-40 w-40 rotate-45 rounded-3xl bg-gradient-to-br from-electric/20 to-primary/10 outline-1 outline-electric/20 drift-b"
               aria-hidden="true"
             />
             <p className="enter-up relative mb-5 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.3em] text-electric/90">
@@ -106,7 +106,7 @@ function Index() {
           {/* Right: agent preview card */}
           <div className="enter-up relative lg:col-span-5" style={{ animationDelay: "0.12s" }}>
             <div
-              className="absolute -top-6 -right-4 h-28 w-28 rotate-45 rounded-2xl bg-gradient-to-br from-fuchsia-500/25 to-transparent outline-1 outline-fuchsia-400/25 drift-a"
+              className="absolute -top-6 -right-4 h-28 w-28 rotate-45 rounded-2xl bg-gradient-to-br from-accent/30 to-transparent outline-1 outline-accent/30 drift-a"
               aria-hidden="true"
             />
             <GlassPanel>
@@ -207,7 +207,7 @@ function Index() {
 
       {/* Launch strip */}
       <section className="relative z-20 px-6 pb-16 md:px-12 lg:px-16">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-electric/25 via-indigo-500/15 to-fuchsia-500/25 outline-1 outline-white/15">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-electric/25 via-primary/15 to-accent/25 outline-1 outline-white/15">
           <div className="absolute inset-0 bg-ink/55" aria-hidden="true" />
           <div
             className="sheen absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/10 to-transparent"

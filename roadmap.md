@@ -10,9 +10,9 @@
 - [x] Waveform image asset
 - [x] Head metadata per route
 - [x] Verify build + preview (build OK, full flow verified end-to-end)
-- [ ] Shift dark glass theme to lavender and purple
-- [ ] Add Chinese agent language
-- [ ] Add demo, tutorial upload, and live screen recording Capture sources
-- [ ] Name tutors from Map and select them in Teach
-- [ ] Make Teach vendor and amount editable and add tutorial completion
+- [x] Shift dark glass theme to lavender and purple
+- [x] Add Chinese agent language
+- [x] Add demo, tutorial upload, and live screen recording Capture sources
+- [x] Name tutors from Map and select them in Teach
+- [x] Make Teach vendor and amount editable and add tutorial completion
 - [ ] Verify updated flow, rules, and responsive layouts
