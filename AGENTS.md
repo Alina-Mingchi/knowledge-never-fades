@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Persist user-created tutor profiles through the shared tutor utility so Map and Teach use one browser-storage contract.
+- Keep the invoice approval threshold in the shared tutorial rules module so Teach behavior and tests cannot drift.

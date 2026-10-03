@@ -6,7 +6,7 @@
 
 /*
  * Knowledge Never Fades — "Kinetic glass" design system.
- * Dark-only: deep ink background, electric cyan primary, glass surfaces.
+ * Dark-only: deep ink background, luminous lavender primary, glass surfaces.
  */
 
 @theme inline {
@@ -47,29 +47,29 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.13 0.02 275);
+  --background: oklch(0.125 0.025 292);
   --foreground: oklch(0.98 0.005 250);
-  --card: oklch(0.17 0.025 275);
+  --card: oklch(0.17 0.035 292);
   --card-foreground: oklch(0.98 0.005 250);
-  --popover: oklch(0.17 0.025 275);
+  --popover: oklch(0.17 0.035 292);
   --popover-foreground: oklch(0.98 0.005 250);
-  --primary: oklch(0.86 0.16 210);
-  --primary-foreground: oklch(0.13 0.02 275);
-  --secondary: oklch(0.22 0.03 275);
+  --primary: oklch(0.79 0.14 300);
+  --primary-foreground: oklch(0.13 0.025 292);
+  --secondary: oklch(0.23 0.045 292);
   --secondary-foreground: oklch(0.98 0.005 250);
-  --muted: oklch(0.22 0.03 275);
+  --muted: oklch(0.23 0.035 292);
   --muted-foreground: oklch(0.7 0.02 260);
-  --accent: oklch(0.25 0.05 290);
+  --accent: oklch(0.3 0.09 315);
   --accent-foreground: oklch(0.98 0.005 250);
   --destructive: oklch(0.65 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 250);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.86 0.16 210);
-  --electric: oklch(0.86 0.16 210);
-  --ink: oklch(0.13 0.02 275);
-  --glass: oklch(1 0 0 / 5%);
-  --glass-border: oklch(1 0 0 / 15%);
+  --ring: oklch(0.79 0.14 300);
+  --electric: oklch(0.79 0.14 300);
+  --ink: oklch(0.125 0.025 292);
+  --glass: oklch(0.72 0.08 300 / 8%);
+  --glass-border: oklch(0.82 0.1 300 / 22%);
 }
 
 @layer base {

@@ -21,6 +21,7 @@ export const LANGUAGES: AgentLanguage[] = [
   { code: "de", label: "Deutsch", agentLocale: "de-DE", short: "DE" },
   { code: "ja", label: "日本語", agentLocale: "ja-JP", short: "JA" },
   { code: "pt", label: "Português", agentLocale: "pt-BR", short: "PT" },
+  { code: "zh", label: "中文", agentLocale: "zh-CN", short: "ZH" },
 ];
 
 const STORAGE_KEY = "knf-language";
