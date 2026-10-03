@@ -1,12 +1,12 @@
 # Knowledge Never Fades — roadmap
 
 - [x] Design direction chosen: Kinetic glass
-- [ ] Design tokens + fonts (Anton / Space Grotesk, electric on ink)
-- [ ] Language context (drives ElevenLabs agent language)
-- [ ] Route / — language gate + module entry
-- [ ] Route /capture — screen-share + voice agent side panel
-- [ ] Route /map — debrief + clickable Work Map timeline
-- [ ] Route /teach — voice tutor + mastery summary
-- [ ] Waveform image asset
-- [ ] Head metadata per route
-- [ ] Verify build + preview
+- [x] Design tokens + fonts (Anton / Space Grotesk, electric on ink)
+- [x] Language context (drives ElevenLabs agent language)
+- [x] Route / — language gate + module entry
+- [x] Route /capture — screen-share + voice agent side panel
+- [x] Route /map — debrief + clickable Work Map timeline
+- [x] Route /teach — voice tutor + mastery summary
+- [x] Waveform image asset
+- [x] Head metadata per route
+- [x] Verify build + preview (build OK, full flow verified end-to-end)
