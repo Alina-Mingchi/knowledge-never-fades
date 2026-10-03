@@ -1,0 +1,210 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
+import { useLanguage } from "@/lib/language";
+import { getTeachCopy } from "@/lib/agentCopy";
+
+export const Route = createFileRoute("/teach")({
+  head: () => ({
+    meta: [
+      { title: "Teach — Knowledge Never Fades" },
+      {
+        name: "description",
+        content:
+          "A voice tutor coaches the new hire on their own screen and steps in before a guardrail is broken.",
+      },
+      { property: "og:title", content: "Teach — Knowledge Never Fades" },
+      {
+        property: "og:description",
+        content: "Coaching the next generation with the expert's own reasoning.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: Teach,
+});
+
+function Teach() {
+  const { language } = useLanguage();
+  const copy = getTeachCopy(language.code);
+  const [costCenter, setCostCenter] = useState("4711");
+  const [blocked, setBlocked] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const amount = 12400;
+
+  const trySave = () => {
+    if (amount > 10000) {
+      setBlocked(true);
+      return;
+    }
+    setSaved(true);
+  };
+
+  const mastered = (costCenter === "0400" ? 2 : 1) + (saved ? 1 : 0);
+
+  return (
+    <div className="relative min-h-screen w-full overflow-hidden bg-ink font-body text-white">
+      <AmbientBackground />
+      <TopRail part="Module 3 / 3 · Teach" />
+
+      <main className="relative z-20 px-6 pb-16 md:px-12 lg:px-16">
+        <div className="mb-8 enter-up">
+          <p className="inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.3em] text-electric/90">
+            <span className="h-px w-8 bg-electric/60" /> New hire · invoice 5203
+          </p>
+          <h1 className="mt-3 font-display text-[clamp(2.2rem,5vw,4rem)] leading-[0.95] tracking-tight">
+            A new case.
+            <br />
+            <span className="text-electric">The expert's reasoning.</span>
+          </h1>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-12">
+          {/* New hire screen */}
+          <div className="lg:col-span-7 enter-up" style={{ animationDelay: "0.08s" }}>
+            <GlassPanel className="h-full">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <span className="text-[11px] uppercase tracking-[0.2em] text-white/40">
+                  New hire's screen · ledger app
+                </span>
+                <span className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-electric/80">
+                  <span className="h-2 w-2 rounded-full bg-electric pulse-dot" /> tutor watching
+                </span>
+              </div>
+
+              <div className="mt-5 rounded-2xl bg-ink/60 p-5 outline-1 outline-white/10">
+                <p className="font-display text-2xl tracking-tight">Invoice #5203</p>
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl bg-white/5 p-3 outline-1 outline-white/10">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">Vendor</p>
+                    <p className="mt-1 text-sm font-medium">Brightline Media AG</p>
+                  </div>
+                  <div className="rounded-xl bg-white/5 p-3 outline-1 outline-white/10">
+                    <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">Amount</p>
+                    <p className="mt-1 text-sm font-medium text-electric">€12,400</p>
+                  </div>
+                  <label className="rounded-xl bg-white/5 p-3 outline-1 outline-electric/40 sm:col-span-2">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                      Cost center
+                    </span>
+                    <select
+                      value={costCenter}
+                      onChange={(e) => setCostCenter(e.target.value)}
+                      className="mt-1 block w-full rounded-md bg-ink px-2 py-1.5 text-sm outline-1 outline-white/15"
+                    >
+                      <option value="4711">4711 · General admin</option>
+                      <option value="0400">0400 · Marketing</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-3">
+                <button
+                  onClick={trySave}
+                  disabled={saved}
+                  className="rounded-full bg-white/5 px-6 py-3 text-sm font-semibold outline-1 outline-white/15 transition hover:outline-electric/50 disabled:opacity-40"
+                >
+                  Save invoice
+                </button>
+                {blocked && (
+                  <button
+                    onClick={() => {
+                      setBlocked(false);
+                      setSaved(true);
+                    }}
+                    className="rounded-full bg-electric px-6 py-3 text-sm font-bold text-ink"
+                  >
+                    Ask manager, then save
+                  </button>
+                )}
+              </div>
+
+              {blocked && (
+                <div className="enter-up mt-5 rounded-2xl bg-destructive/15 p-4 outline-1 outline-destructive/60">
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-destructive">
+                    Save blocked · guardrail
+                  </p>
+                  <p className="mt-1 text-[14px] leading-relaxed">{copy.guardrailAlert}</p>
+                  <p className="mt-3 rounded-xl bg-ink/60 p-3 text-[13px] italic text-electric/90 outline-1 outline-white/10">
+                    ▶ Expert replay · 01:12 — "Anything above €10,000 — I always check with the
+                    manager first."
+                  </p>
+                </div>
+              )}
+              {saved && (
+                <p className="enter-up mt-5 flex items-center gap-2 text-[13px] text-electric">
+                  <span className="h-2 w-2 rounded-full bg-electric" /> Saved after manager
+                  approval.
+                </p>
+              )}
+            </GlassPanel>
+          </div>
+
+          {/* Tutor panel */}
+          <div className="lg:col-span-5 enter-up" style={{ animationDelay: "0.14s" }}>
+            <GlassPanel className="flex h-full flex-col">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                <div className="flex items-center gap-3">
+                  <span className="grid h-9 w-9 place-items-center rounded-full bg-electric/15 outline-1 outline-electric/30">
+                    <span className="h-2 w-2 rounded-full bg-electric pulse-dot" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold">Tutor</p>
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-white/40">
+                      Coaching · {language.agentLocale}
+                    </p>
+                  </div>
+                </div>
+                <span className="rounded-full bg-electric/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-electric outline-1 outline-electric/30">
+                  {language.short}
+                </span>
+              </div>
+
+              <div className="mt-4 space-y-2">
+                {copy.coaching.map((c, i) => (
+                  <p
+                    key={i}
+                    className={`rounded-2xl rounded-tl-md px-3 py-2 text-[13px] leading-relaxed outline-1 ${
+                      i === 2 && blocked
+                        ? "bg-destructive/15 outline-destructive/50"
+                        : "bg-white/5 text-white/80 outline-white/10"
+                    }`}
+                  >
+                    {c}
+                  </p>
+                ))}
+              </div>
+
+              <div className="mt-auto pt-6">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                  Mastery summary
+                </p>
+                <div className="mt-2 flex items-center gap-3">
+                  <span className="font-display text-3xl">
+                    {mastered}
+                    <span className="text-base text-white/40">/3</span>
+                  </span>
+                  <span className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
+                    <span
+                      className="block h-2 rounded-full bg-electric transition-all duration-700"
+                      style={{ width: `${(mastered / 3) * 100}%` }}
+                    />
+                  </span>
+                </div>
+                <p className="mt-2 text-[12px] text-white/50">{copy.masteryNote}</p>
+                <Link
+                  to="/"
+                  className="mt-5 block rounded-full bg-white/5 px-5 py-3 text-center text-sm font-semibold outline-1 outline-white/15 transition hover:outline-electric/50"
+                >
+                  ← Change language
+                </Link>
+              </div>
+            </GlassPanel>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
