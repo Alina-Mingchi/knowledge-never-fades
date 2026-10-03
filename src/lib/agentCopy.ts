@@ -243,11 +243,11 @@ const teach: Record<string, TeachCopy> = {
 };
 
 export function getCaptureCopy(code: string): CaptureCopy {
-  return capture[code] ?? capture.en;
+  return capture[code] ?? capture["en"]!;
 }
 export function getMapCopy(code: string): MapCopy {
-  return map[code] ?? map.en;
+  return map[code] ?? map["en"]!;
 }
 export function getTeachCopy(code: string): TeachCopy {
-  return teach[code] ?? teach.en;
+  return teach[code] ?? teach["en"]!;
 }
