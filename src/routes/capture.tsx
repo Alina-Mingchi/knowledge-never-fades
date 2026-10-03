@@ -338,7 +338,7 @@ function Capture() {
               <div className="mt-6 border-t border-white/10 pt-4">
                 <Link
                   to="/map"
-                  className="group relative block overflow-hidden rounded-full bg-electric px-5 py-3 text-center text-sm font-bold text-ink shadow-[0_0_34px_-6px_rgba(0,229,255,0.7)]"
+                  className="group relative block overflow-hidden rounded-full bg-electric px-5 py-3 text-center text-sm font-bold text-ink shadow-lg shadow-primary/20"
                 >
                   <span className="relative z-10">End task · start debrief →</span>
                   <span className="sheen absolute inset-0 z-0 w-1/2 bg-gradient-to-r from-transparent via-white/50 to-transparent" />

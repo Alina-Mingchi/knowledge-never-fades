@@ -75,7 +75,7 @@ function Index() {
                     onClick={() => setLanguage(lang.code)}
                     className={
                       active
-                        ? "group relative overflow-hidden rounded-full bg-electric px-5 py-2.5 text-sm font-bold text-ink shadow-[0_0_34px_-6px_rgba(0,229,255,0.7)]"
+                        ? "group relative overflow-hidden rounded-full bg-electric px-5 py-2.5 text-sm font-bold text-ink shadow-lg shadow-primary/20"
                         : "rounded-full bg-white/5 px-5 py-2.5 text-sm font-medium text-white/70 outline-1 outline-white/15 transition hover:outline-electric/50 hover:text-white"
                     }
                   >
