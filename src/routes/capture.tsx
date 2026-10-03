@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { FileVideo, MonitorUp, Play, Square } from "lucide-react";
 import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
+import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/language";
 import { getCaptureCopy } from "@/lib/agentCopy";
 import waveform from "@/assets/waveform.jpg";
@@ -32,6 +34,8 @@ interface Exchange {
   event: string;
 }
 
+type CaptureSource = "demo" | "upload" | "record";
+
 function Capture() {
   const { language } = useLanguage();
   const copy = getCaptureCopy(language.code);
@@ -44,6 +48,12 @@ function Capture() {
 
   // Reveal exchanges one at a time, simulating natural pauses.
   const [visible, setVisible] = useState(0);
+  const [source, setSource] = useState<CaptureSource>("demo");
+  const [uploadUrl, setUploadUrl] = useState("");
+  const [uploadName, setUploadName] = useState("");
+  const [screenStream, setScreenStream] = useState<MediaStream | null>(null);
+  const [recordingError, setRecordingError] = useState("");
+  const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
     setVisible(0);
     const timers = exchanges.map((_, i) =>
@@ -52,6 +62,53 @@ function Capture() {
     return () => timers.forEach(window.clearTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language.code]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) video.srcObject = screenStream;
+  }, [screenStream, source]);
+
+  useEffect(
+    () => () => {
+      if (uploadUrl) URL.revokeObjectURL(uploadUrl);
+      screenStream?.getTracks().forEach((track) => track.stop());
+    },
+    [screenStream, uploadUrl],
+  );
+
+  const chooseSource = (nextSource: CaptureSource) => {
+    if (source === "record" && nextSource !== "record") {
+      screenStream?.getTracks().forEach((track) => track.stop());
+      setScreenStream(null);
+    }
+    setRecordingError("");
+    setSource(nextSource);
+  };
+
+  const startScreenRecording = async () => {
+    setSource("record");
+    setRecordingError("");
+    try {
+      const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+      stream.getVideoTracks()[0]?.addEventListener("ended", () => setScreenStream(null));
+      setScreenStream(stream);
+    } catch {
+      setRecordingError("Screen sharing was cancelled. Choose Start screen recording to try again.");
+    }
+  };
+
+  const stopScreenRecording = () => {
+    screenStream?.getTracks().forEach((track) => track.stop());
+    setScreenStream(null);
+  };
+
+  const selectTutorialVideo = (file?: File) => {
+    if (!file) return;
+    if (uploadUrl) URL.revokeObjectURL(uploadUrl);
+    setUploadUrl(URL.createObjectURL(file));
+    setUploadName(file.name);
+    setSource("upload");
+  };
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-ink font-body text-white">
@@ -68,6 +125,38 @@ function Capture() {
             <br />
             <span className="text-electric">The agent asks why.</span>
           </h1>
+        </div>
+
+        <div className="mb-6 grid gap-3 sm:grid-cols-3" aria-label="Capture source">
+          <Button
+            variant={source === "demo" ? "default" : "outline"}
+            onClick={() => chooseSource("demo")}
+            className="h-auto justify-start rounded-lg px-4 py-3"
+          >
+            <Play /> Current demo
+          </Button>
+          <label
+            className={`flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium transition ${
+              source === "upload"
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-input bg-background hover:bg-accent"
+            }`}
+          >
+            <FileVideo className="h-4 w-4" /> Upload tutorial video
+            <input
+              type="file"
+              accept="video/*"
+              className="sr-only"
+              onChange={(event) => selectTutorialVideo(event.target.files?.[0])}
+            />
+          </label>
+          <Button
+            variant={source === "record" ? "default" : "outline"}
+            onClick={() => void startScreenRecording()}
+            className="h-auto justify-start rounded-lg px-4 py-3"
+          >
+            <MonitorUp /> Start screen recording
+          </Button>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-12">
@@ -88,7 +177,7 @@ function Capture() {
                 </span>
               </div>
 
-              {/* Simulated ledger screen */}
+              {source === "demo" && (
               <div className="mt-5 rounded-2xl bg-ink/60 p-5 outline-1 outline-white/10">
                 <div className="flex items-center justify-between">
                   <p className="font-display text-2xl tracking-tight">Invoice #4471</p>
@@ -120,6 +209,56 @@ function Capture() {
                   </div>
                 </div>
               </div>
+              )}
+
+              {source === "upload" && (
+                <div className="mt-5 overflow-hidden rounded-2xl bg-ink/60 outline-1 outline-white/10">
+                  {uploadUrl ? (
+                    <>
+                      <video src={uploadUrl} controls className="aspect-video w-full bg-ink object-contain" />
+                      <p className="truncate px-4 py-3 text-sm text-white/65">{uploadName}</p>
+                    </>
+                  ) : (
+                    <label className="flex aspect-video cursor-pointer flex-col items-center justify-center gap-3 px-6 text-center">
+                      <FileVideo className="h-8 w-8 text-electric" />
+                      <span className="text-sm font-semibold">Choose a tutorial video</span>
+                      <span className="text-xs text-white/45">The agent will map the visible workflow.</span>
+                      <input
+                        type="file"
+                        accept="video/*"
+                        className="sr-only"
+                        onChange={(event) => selectTutorialVideo(event.target.files?.[0])}
+                      />
+                    </label>
+                  )}
+                </div>
+              )}
+
+              {source === "record" && (
+                <div className="mt-5 overflow-hidden rounded-2xl bg-ink/60 outline-1 outline-white/10">
+                  {screenStream ? (
+                    <>
+                      <video ref={videoRef} autoPlay muted playsInline className="aspect-video w-full object-contain" />
+                      <div className="flex items-center justify-between gap-3 px-4 py-3">
+                        <span className="flex items-center gap-2 text-xs text-electric">
+                          <span className="h-2 w-2 rounded-full bg-destructive pulse-dot" /> Recording screen
+                        </span>
+                        <Button variant="outline" size="sm" onClick={stopScreenRecording}>
+                          <Square /> Stop
+                        </Button>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex aspect-video flex-col items-center justify-center gap-3 px-6 text-center">
+                      <MonitorUp className="h-8 w-8 text-electric" />
+                      <p className="text-sm text-white/60">
+                        {recordingError || "Choose a window or tab for the agent to watch."}
+                      </p>
+                      <Button onClick={() => void startScreenRecording()}>Start screen recording</Button>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Detected events */}
               <div className="mt-5">
@@ -199,7 +338,7 @@ function Capture() {
               <div className="mt-6 border-t border-white/10 pt-4">
                 <Link
                   to="/map"
-                  className="group relative block overflow-hidden rounded-full bg-electric px-5 py-3 text-center text-sm font-bold text-ink shadow-[0_0_34px_-6px_rgba(0,229,255,0.7)]"
+                  className="group relative block overflow-hidden rounded-full bg-electric px-5 py-3 text-center text-sm font-bold text-ink shadow-lg shadow-primary/20"
                 >
                   <span className="relative z-10">End task · start debrief →</span>
                   <span className="sheen absolute inset-0 z-0 w-1/2 bg-gradient-to-r from-transparent via-white/50 to-transparent" />

@@ -2,13 +2,13 @@ import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { useLanguage } from "@/lib/language";
 
-/** Ambient kinetic-glass background: drifting color blobs + faint grid. */
+/** Ambient kinetic-glass background: drifting lavender light + faint grid. */
 export function AmbientBackground() {
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden="true">
       <div className="absolute -top-48 -left-24 h-[36rem] w-[36rem] rounded-full bg-electric/25 blur-[130px] drift-a" />
-      <div className="absolute bottom-[-12rem] right-[-10rem] h-[34rem] w-[34rem] rounded-full bg-indigo-500/30 blur-[130px] drift-b" />
-      <div className="absolute top-1/3 left-1/2 h-[22rem] w-[22rem] -translate-x-1/2 rounded-full bg-fuchsia-500/15 blur-[120px]" />
+      <div className="absolute bottom-[-12rem] right-[-10rem] h-[34rem] w-[34rem] rounded-full bg-primary/25 blur-[130px] drift-b" />
+      <div className="absolute top-1/3 left-1/2 h-[22rem] w-[22rem] -translate-x-1/2 rounded-full bg-accent/20 blur-[120px]" />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:66px_66px] [mask-image:radial-gradient(ellipse_at_center,black_25%,transparent_75%)]" />
     </div>
   );
