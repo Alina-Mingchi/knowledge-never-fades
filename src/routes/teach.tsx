@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useLanguage } from "@/lib/language";
-import { getTeachCopy } from "@/lib/agentCopy";
+import { formatUsd, getTeachCopy } from "@/lib/agentCopy";
 import {
   DEFAULT_TUTOR,
   getSelectedTutorId,
@@ -99,7 +99,7 @@ function Teach() {
     }
     if (alertSpoken) return;
     setAlertSpoken(true);
-    speakLine(`alert-${language.code}`, 2, copy.guardrailAlert);
+    speakLine(`alert-${language.code}`, 2, withAmount(copy.guardrailAlert));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blocked, alertSpoken]);
 
@@ -116,6 +116,13 @@ function Teach() {
   const selectedTutor = tutors.find((tutor) => tutor.id === selectedTutorId) ?? DEFAULT_TUTOR;
   const introGreetingActive = usesTutorialGreeting(selectedTutor.name);
   const formComplete = Boolean(vendor.trim() && amount && amountValue > 0 && costCenter && due);
+
+  // Speaks the actual entered amount once it passes the guardrail; falls back to the demo amount.
+  const withAmount = (text: string) =>
+    text.replace(
+      "{amount}",
+      formatUsd(language.code, requiresManagerApproval(amountValue) ? amountValue : 12400),
+    );
 
   const resetResult = () => {
     setBlocked(false);
@@ -229,7 +236,7 @@ function Teach() {
                       placeholder="0"
                       onFocus={() => {
                         if (requiresManagerApproval(amountValue)) {
-                          onFieldFocus("amount", 2, copy.coaching[2] ?? "");
+                          onFieldFocus("amount", 2, withAmount(copy.coaching[2] ?? ""));
                         }
                       }}
                       onChange={(event) => {
@@ -308,7 +315,7 @@ function Teach() {
                   <p className="text-xs uppercase tracking-[0.2em] text-destructive">
                     Save blocked · guardrail
                   </p>
-                  <p className="mt-1 text-base leading-relaxed">{copy.guardrailAlert}</p>
+                  <p className="mt-1 text-base leading-relaxed">{withAmount(copy.guardrailAlert)}</p>
                   <p className="mt-3 rounded-xl bg-ink/60 p-3 text-sm italic text-electric/90 outline-1 outline-white/10">
                     ▶ Expert replay · 01:12 — "Anything above $10,000 — I always check with the
                     manager first."
@@ -398,7 +405,7 @@ function Teach() {
                             : "bg-white/5 text-white/80 outline-white/10"
                       }`}
                     >
-                      {isActive ? caption : c}
+                      {isActive ? caption : withAmount(c)}
                       {isActive && (
                         <span className="ml-2 inline-flex items-center gap-1 align-middle text-xs uppercase tracking-[0.2em] text-electric">
                           <Volume2 className="h-3 w-3" /> speaking

@@ -211,10 +211,10 @@ const teach: Record<string, TeachCopy> = {
     coaching: [
       "Who are you sending the invoice to?",
       "Before you save: which cost center owns this vendor's contract?",
-      "Stop — the amount is $12,400. What did the expert say about the limit?",
+      "Stop — the amount is {amount}. What did the expert say about the limit?",
     ],
     guardrailAlert:
-      "Guardrail risk: $12,400 is above $10,000. The expert always asks the manager first — replay their screen moment before you save.",
+      "Guardrail risk: {amount} is above $10,000. The expert always asks the manager first — replay their screen moment before you save.",
     masteryNote: "Guardrail awareness needs a second pass.",
   },
   de: {
@@ -222,10 +222,10 @@ const teach: Record<string, TeachCopy> = {
     coaching: [
       "An wen geht diese Rechnung?",
       "Bevor du speicherst: welche Kostenstelle besitzt den Vertrag dieses Lieferanten?",
-      "Stopp — der Betrag ist 12.400 $. Was hat der Experte über die Grenze gesagt?",
+      "Stopp — der Betrag ist {amount}. Was hat der Experte über die Grenze gesagt?",
     ],
     guardrailAlert:
-      "Guardrail-Risiko: 12.400 $ liegt über 10.000 $. Der Experte fragt immer zuerst die Leitung — spiel den Bildschirmmoment ab, bevor du speicherst.",
+      "Guardrail-Risiko: {amount} liegt über 10.000 $. Der Experte fragt immer zuerst die Leitung — spiel den Bildschirmmoment ab, bevor du speicherst.",
     masteryNote: "Guardrail-Bewusstsein braucht einen zweiten Durchlauf.",
   },
   es: {
@@ -233,10 +233,10 @@ const teach: Record<string, TeachCopy> = {
     coaching: [
       "¿A quién va dirigida la factura?",
       "Antes de guardar: ¿qué centro de costos posee el contrato de este proveedor?",
-      "Alto — el importe es 12.400 $. ¿Qué dijo el experto sobre el límite?",
+      "Alto — el importe es {amount}. ¿Qué dijo el experto sobre el límite?",
     ],
     guardrailAlert:
-      "Riesgo de guardrail: 12.400 $ supera los 10.000 $. El experto siempre pregunta primero al gerente — reproduce su momento de pantalla antes de guardar.",
+      "Riesgo de guardrail: {amount} supera los 10.000 $. El experto siempre pregunta primero al gerente — reproduce su momento de pantalla antes de guardar.",
     masteryNote: "La atención a los guardrails necesita una segunda pasada.",
   },
   fr: {
@@ -244,10 +244,10 @@ const teach: Record<string, TeachCopy> = {
     coaching: [
       "À qui est destinée cette facture ?",
       "Avant d'enregistrer : quel centre de coûts détient le contrat de ce fournisseur ?",
-      "Stop — le montant est de 12 400 $. Qu'a dit l'expert à propos de la limite ?",
+      "Stop — le montant est de {amount}. Qu'a dit l'expert à propos de la limite ?",
     ],
     guardrailAlert:
-      "Risque de garde-fou : 12 400 $ dépasse 10 000 $. L'expert demande toujours au responsable d'abord — rejouez son moment d'écran avant d'enregistrer.",
+      "Risque de garde-fou : {amount} dépasse 10 000 $. L'expert demande toujours au responsable d'abord — rejouez son moment d'écran avant d'enregistrer.",
     masteryNote: "La vigilance aux garde-fous nécessite un second passage.",
   },
   ja: {
@@ -255,10 +255,10 @@ const teach: Record<string, TeachCopy> = {
     coaching: [
       "この請求書はどなた宛てですか？",
       "保存する前に：このベンダーの契約を保有するコストセンターはどこですか？",
-      "ストップ — 金額は$12,400です。上限についてエキスパートは何と言いましたか？",
+      "ストップ — 金額は{amount}です。上限についてエキスパートは何と言いましたか？",
     ],
     guardrailAlert:
-      "ガードレールリスク：$12,400は$10,000を超えています。エキスパートは必ず先にマネージャーに確認します — 保存する前に画面モーメントを再生してください。",
+      "ガードレールリスク：{amount}は$10,000を超えています。エキスパートは必ず先にマネージャーに確認します — 保存する前に画面モーメントを再生してください。",
     masteryNote: "ガードレールへの意識はもう一度練習が必要です。",
   },
   pt: {
@@ -266,10 +266,10 @@ const teach: Record<string, TeachCopy> = {
     coaching: [
       "Para quem é essa fatura?",
       "Antes de salvar: qual centro de custos detém o contrato deste fornecedor?",
-      "Pare — o valor é $12.400. O que o especialista disse sobre o limite?",
+      "Pare — o valor é {amount}. O que o especialista disse sobre o limite?",
     ],
     guardrailAlert:
-      "Risco de guardrail: $12.400 está acima de $10.000. O especialista sempre pergunta ao gerente primeiro — reproduza o momento de tela dele antes de salvar.",
+      "Risco de guardrail: {amount} está acima de $10.000. O especialista sempre pergunta ao gerente primeiro — reproduza o momento de tela dele antes de salvar.",
     masteryNote: "A atenção aos guardrails precisa de uma segunda passada.",
   },
   zh: {
@@ -277,10 +277,10 @@ const teach: Record<string, TeachCopy> = {
     coaching: [
       "这张发票是开给谁的？",
       "保存前，请判断哪个成本中心负责这家供应商的合同。",
-      "请暂停，金额是 $12,400。专家对限额是怎么说的？",
+      "请暂停，金额是 {amount}。专家对限额是怎么说的？",
     ],
     guardrailAlert:
-      "触发规则：$12,400 超过 $10,000。专家会先请经理确认，请在保存前回看对应的屏幕片段。",
+      "触发规则：{amount} 超过 $10,000。专家会先请经理确认，请在保存前回看对应的屏幕片段。",
     masteryNote: "还需要再练习一次限额规则。",
   },
 };
@@ -293,4 +293,13 @@ export function getMapCopy(code: string): MapCopy {
 }
 export function getTeachCopy(code: string): TeachCopy {
   return teach[code] ?? teach["en"]!;
+}
+
+const USD_PREFIXED = new Set(["en", "ja", "pt", "zh"]);
+
+/** Formats an amount in USD with the grouping style of the given language's copy. */
+export function formatUsd(code: string, value: number): string {
+  const rounded = Math.round(value * 100) / 100;
+  const formatted = new Intl.NumberFormat(code, { maximumFractionDigits: 2 }).format(rounded);
+  return USD_PREFIXED.has(code) ? `$${formatted}` : `${formatted} $`;
 }
