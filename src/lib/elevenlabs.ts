@@ -7,7 +7,7 @@ export type AgentRole = "captureMap" | "teach";
 
 export const AGENT_IDS: Record<AgentRole, string> = {
   captureMap: "agent_1801m4379cqvfqjra767kydbtdwn", // Apprentice Agent (Capture + Map)
-  teach: "", // TODO: Teach agent_id
+  teach: "agent_3901m437pnd1f8gvwk0e90hm91ac", // Tutor agent (Teach)
 };
 
 export function getAgentId(role: AgentRole): string {
