@@ -186,10 +186,10 @@ function Teach() {
           <div className="lg:col-span-7 enter-up" style={{ animationDelay: "0.08s" }}>
             <GlassPanel className="h-full">
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <span className="text-[11px] uppercase tracking-[0.2em] text-white/40">
+                <span className="text-xs uppercase tracking-[0.2em] text-white/40">
                   New hire's screen · ledger app
                 </span>
-                <span className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-electric/80">
+                <span className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-electric/80">
                   <span className="h-2 w-2 rounded-full bg-electric pulse-dot" /> tutor watching
                 </span>
               </div>
@@ -370,7 +370,7 @@ function Teach() {
                     >
                       {isActive ? caption : c}
                       {isActive && (
-                        <span className="ml-2 inline-flex items-center gap-1 align-middle text-[10px] uppercase tracking-[0.2em] text-electric">
+                        <span className="ml-2 inline-flex items-center gap-1 align-middle text-xs uppercase tracking-[0.2em] text-electric">
                           <Volume2 className="h-3 w-3" /> speaking
                         </span>
                       )}
