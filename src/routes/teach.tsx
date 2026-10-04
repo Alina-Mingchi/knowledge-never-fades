@@ -189,6 +189,7 @@ function Teach() {
                     <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">Vendor</span>
                     <Input
                       value={vendor}
+                      onFocus={() => onFieldFocus("vendor", 0, copy.coaching[0] ?? "")}
                       onChange={(event) => {
                         setVendor(event.target.value);
                         resetResult();
@@ -202,6 +203,7 @@ function Teach() {
                       type="number"
                       min="0"
                       value={amount}
+                      onFocus={() => onFieldFocus("amount", 2, copy.coaching[2] ?? "")}
                       onChange={(event) => {
                         setAmount(event.target.value);
                         resetResult();
@@ -215,6 +217,7 @@ function Teach() {
                     </span>
                     <select
                       value={costCenter}
+                      onFocus={() => onFieldFocus("costCenter", 1, copy.coaching[1] ?? "")}
                       onChange={(e) => {
                         setCostCenter(e.target.value);
                         resetResult();
