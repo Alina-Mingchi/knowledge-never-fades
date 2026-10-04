@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CheckCircle2, RotateCcw } from "lucide-react";
-import { useEffect, useState } from "react";
+import { CheckCircle2, RotateCcw, Volume2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useSpokenCaption } from "@/hooks/use-spoken-caption";
 import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
