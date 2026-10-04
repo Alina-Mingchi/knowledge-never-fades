@@ -64,6 +64,17 @@ function Teach() {
   const [activeLine, setActiveLine] = useState<number | null>(null);
   const [alertSpoken, setAlertSpoken] = useState(false);
   const spokenOnceRef = useRef<Set<string>>(new Set());
+  const [liveActive, setLiveActive] = useState(false);
+  const liveActiveRef = useRef(false);
+
+  // While the live agent is connected, the scripted tutor voice stays silent.
+  useEffect(() => {
+    liveActiveRef.current = liveActive;
+    if (liveActive) {
+      cancel();
+      setActiveLine(null);
+    }
+  }, [liveActive, cancel]);
 
   useEffect(() => {
     setTutors([DEFAULT_TUTOR, ...getTutors()]);
@@ -71,6 +82,7 @@ function Teach() {
   }, []);
 
   const speakLine = (key: string, index: number, text: string) => {
+    if (liveActiveRef.current) return;
     setActiveLine(index);
     speak(text, { locale: language.agentLocale });
     spokenOnceRef.current.add(key);
@@ -82,6 +94,7 @@ function Teach() {
     const key = `intro-${language.code}`;
     if (spokenOnceRef.current.has(key)) return;
     const timer = globalThis.setTimeout(() => {
+      if (liveActiveRef.current) return;
       const selectedId = getSelectedTutorId();
       const selectedName =
         [...getTutors(), DEFAULT_TUTOR].find((tutor) => tutor.id === selectedId)?.name ?? "";
@@ -195,7 +208,9 @@ function Teach() {
           role="teach"
           title={`Tutor ${tutors.find((t) => t.id === selectedTutorId)?.name ?? "Mira"}`}
           onStart={cancel}
+          onStatusChange={setLiveActive}
           onOfflineStart={() => {
+            if (liveActiveRef.current) return;
             // The offline walkthrough is always led by the Invoice Navigator tutor.
             const existing = getTutors().find((tutor) => usesTutorialGreeting(tutor.name));
             const navigator =
