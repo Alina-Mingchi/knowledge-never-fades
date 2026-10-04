@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ConversationProvider, useConversation } from "@elevenlabs/react";
-import { Mic, PhoneOff } from "lucide-react";
+import { AudioLines, Mic, PhoneOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassPanel } from "@/components/chrome";
 import { useLanguage } from "@/lib/language";
@@ -14,6 +14,8 @@ interface LiveAgentPanelProps {
   dynamicVariables?: Record<string, string | number | boolean>;
   /** Called when the live session starts, so the page can silence its scripted voice. */
   onStart?: () => void;
+  /** Called to start the scripted (offline) voice walkthrough instead of the live agent. */
+  onOfflineStart?: () => void;
 }
 
 interface Line {
