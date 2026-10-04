@@ -50,11 +50,22 @@ function MapPage() {
   const [activeSpeech, setActiveSpeech] = useState<number | null>(null);
   const [teachBackVisible, setTeachBackVisible] = useState(false);
   const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
+  const [liveActive, setLiveActive] = useState(false);
+  const liveActiveRef = useRef(false);
   const navigate = useNavigate();
+
+  // While the live agent is connected, the scripted voice stays silent.
+  useEffect(() => {
+    liveActiveRef.current = liveActive;
+    if (liveActive) {
+      cancel();
+      setActiveSpeech(null);
+    }
+  }, [liveActive, cancel]);
 
   const speakQuestion = (index: number) => {
     const text = map.debriefQuestions[index];
-    if (!text) return;
+    if (!text || liveActiveRef.current) return;
     setActiveSpeech(index);
     setVisibleQuestions((count) => Math.max(count, index + 1));
     speak(text, {
@@ -64,6 +75,7 @@ function MapPage() {
   };
 
   const speakTeachBack = () => {
+    if (liveActiveRef.current) return;
     setTeachBackVisible(true);
     setActiveSpeech(map.debriefQuestions.length);
     speak(map.teachBack, {
