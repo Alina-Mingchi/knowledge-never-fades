@@ -338,7 +338,7 @@ function Capture() {
             </GlassPanel>
           </div>
 
-          {/* Voice agent side panel */}
+          </div>
           <div className="lg:col-span-5 enter-up" style={{ animationDelay: "0.14s" }}>
             <GlassPanel className="flex h-full flex-col">
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
