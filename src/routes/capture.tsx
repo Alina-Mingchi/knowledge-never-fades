@@ -236,7 +236,7 @@ function Capture() {
                   </div>
                   <div className="rounded-xl bg-white/5 p-3 outline-1 outline-white/10">
                     <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">Amount</p>
-                    <p className="mt-1 text-sm font-medium text-electric">€12,400</p>
+                    <p className="mt-1 text-sm font-medium text-electric">$12,400</p>
                   </div>
                   <div className="rounded-xl bg-white/5 p-3 outline-1 outline-electric/40">
                     <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">

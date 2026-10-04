@@ -30,14 +30,14 @@ const capture: Record<string, CaptureCopy> = {
     questions: [
       "I see you opened invoice 4471 — why this one first?",
       "You changed the cost center from 4711 to 0400. What's the reason?",
-      "The amount is €12,400. Is there a limit where you'd stop and ask someone?",
+      "The amount is $12,400. Is there a limit where you'd stop and ask someone?",
     ],
     answers: [
       "It's the oldest in the batch — due Friday.",
       "Marketing owns this vendor's contract this quarter.",
-      "Anything above €10,000 — I always check with the manager first.",
+      "Anything above $10,000 — I always check with the manager first.",
     ],
-    events: ["invoice 4471 opened", "cost center 4711 → 0400", "amount €12,400 read"],
+    events: ["invoice 4471 opened", "cost center 4711 → 0400", "amount $12,400 read"],
   },
   de: {
     agentName: "Mira · Sprachagent",
@@ -45,14 +45,14 @@ const capture: Record<string, CaptureCopy> = {
     questions: [
       "Ich sehe, du hast Rechnung 4471 geöffnet — warum zuerst diese?",
       "Du hast die Kostenstelle von 4711 auf 0400 geändert. Was ist der Grund?",
-      "Der Betrag ist 12.400 €. Gibt es eine Grenze, ab der du jemanden fragst?",
+      "Der Betrag ist 12.400 $. Gibt es eine Grenze, ab der du jemanden fragst?",
     ],
     answers: [
       "Sie ist die älteste im Stapel — fällig am Freitag.",
       "Marketing besitzt den Vertrag dieses Lieferanten in diesem Quartal.",
-      "Alles über 10.000 € — ich frage immer zuerst die Leitung.",
+      "Alles über 10.000 $ — ich frage immer zuerst die Leitung.",
     ],
-    events: ["Rechnung 4471 geöffnet", "Kostenstelle 4711 → 0400", "Betrag 12.400 € gelesen"],
+    events: ["Rechnung 4471 geöffnet", "Kostenstelle 4711 → 0400", "Betrag 12.400 $ gelesen"],
   },
   es: {
     agentName: "Mira · Agente de voz",
@@ -60,14 +60,14 @@ const capture: Record<string, CaptureCopy> = {
     questions: [
       "Veo que abriste la factura 4471 — ¿por qué esta primero?",
       "Cambiaste el centro de costos de 4711 a 0400. ¿Cuál es la razón?",
-      "El importe es 12.400 €. ¿Hay un límite donde pararías y preguntarías?",
+      "El importe es 12.400 $. ¿Hay un límite donde pararías y preguntarías?",
     ],
     answers: [
       "Es la más antigua del lote — vence el viernes.",
       "Marketing posee el contrato de este proveedor este trimestre.",
-      "Todo lo que supere 10.000 € — siempre consulto primero al gerente.",
+      "Todo lo que supere 10.000 $ — siempre consulto primero al gerente.",
     ],
-    events: ["factura 4471 abierta", "centro de costos 4711 → 0400", "importe 12.400 € leído"],
+    events: ["factura 4471 abierta", "centro de costos 4711 → 0400", "importe 12.400 $ leído"],
   },
   fr: {
     agentName: "Mira · Agent vocal",
@@ -75,14 +75,14 @@ const capture: Record<string, CaptureCopy> = {
     questions: [
       "Je vois que vous avez ouvert la facture 4471 — pourquoi celle-ci d'abord ?",
       "Vous avez changé le centre de coûts de 4711 à 0400. Quelle est la raison ?",
-      "Le montant est de 12 400 €. Y a-t-il une limite où vous vous arrêteriez pour demander ?",
+      "Le montant est de 12 400 $. Y a-t-il une limite où vous vous arrêteriez pour demander ?",
     ],
     answers: [
       "C'est la plus ancienne du lot — échéance vendredi.",
       "Le marketing détient le contrat de ce fournisseur ce trimestre.",
-      "Tout ce qui dépasse 10 000 € — je demande toujours au responsable d'abord.",
+      "Tout ce qui dépasse 10 000 $ — je demande toujours au responsable d'abord.",
     ],
-    events: ["facture 4471 ouverte", "centre de coûts 4711 → 0400", "montant 12 400 € lu"],
+    events: ["facture 4471 ouverte", "centre de coûts 4711 → 0400", "montant 12 400 $ lu"],
   },
   ja: {
     agentName: "Mira · 音声エージェント",
@@ -90,14 +90,14 @@ const capture: Record<string, CaptureCopy> = {
     questions: [
       "請求書4471を開きましたね — なぜこれを最初に？",
       "コストセンターを4711から0400に変更しました。理由は？",
-      "金額は€12,400です。誰かに確認する上限はありますか？",
+      "金額は$12,400です。誰かに確認する上限はありますか？",
     ],
     answers: [
       "バッチで最も古いものです — 金曜日が期限です。",
       "この四半期、マーケティングがこのベンダーの契約を保有しています。",
-      "€10,000を超えるものは — 必ず先にマネージャーに確認します。",
+      "$10,000を超えるものは — 必ず先にマネージャーに確認します。",
     ],
-    events: ["請求書4471を開封", "コストセンター 4711 → 0400", "金額 €12,400 を読み取り"],
+    events: ["請求書4471を開封", "コストセンター 4711 → 0400", "金額 $12,400 を読み取り"],
   },
   pt: {
     agentName: "Mira · Agente de voz",
@@ -105,14 +105,14 @@ const capture: Record<string, CaptureCopy> = {
     questions: [
       "Vejo que você abriu a fatura 4471 — por que esta primeiro?",
       "Você mudou o centro de custos de 4711 para 0400. Qual o motivo?",
-      "O valor é €12.400. Há um limite em que você pararia e perguntaria a alguém?",
+      "O valor é $12.400. Há um limite em que você pararia e perguntaria a alguém?",
     ],
     answers: [
       "É a mais antiga do lote — vence sexta-feira.",
       "O marketing detém o contrato deste fornecedor neste trimestre.",
-      "Tudo acima de €10.000 — sempre confirmo com o gerente primeiro.",
+      "Tudo acima de $10.000 — sempre confirmo com o gerente primeiro.",
     ],
-    events: ["fatura 4471 aberta", "centro de custos 4711 → 0400", "valor €12.400 lido"],
+    events: ["fatura 4471 aberta", "centro de custos 4711 → 0400", "valor $12.400 lido"],
   },
   zh: {
     agentName: "Mira · 语音助手",
@@ -120,14 +120,14 @@ const capture: Record<string, CaptureCopy> = {
     questions: [
       "我看到你打开了发票 4471，为什么先处理这一张？",
       "你把成本中心从 4711 改为 0400，原因是什么？",
-      "金额是 €12,400。达到什么限额时你会暂停并请示他人？",
+      "金额是 $12,400。达到什么限额时你会暂停并请示他人？",
     ],
     answers: [
       "这是这一批中最早的一张，周五到期。",
       "本季度由市场部负责这家供应商的合同。",
-      "任何超过 €10,000 的款项，我都会先请经理确认。",
+      "任何超过 $10,000 的款项，我都会先请经理确认。",
     ],
-    events: ["已打开发票 4471", "成本中心 4711 → 0400", "已读取金额 €12,400"],
+    events: ["已打开发票 4471", "成本中心 4711 → 0400", "已读取金额 $12,400"],
   },
 };
 
@@ -135,71 +135,71 @@ const map: Record<string, MapCopy> = {
   en: {
     debriefQuestions: [
       "When would you reject invoice 4471 instead of booking it?",
-      "Who do you ask when the amount is over €10,000?",
+      "Who do you ask when the amount is over $10,000?",
       "What do you check before you press save?",
     ],
     teachBack:
-      "So the process is: open the oldest invoice first, book it to the cost center that owns the vendor's contract, and stop to ask the manager whenever the amount passes €10,000. Did I get that right?",
+      "So the process is: open the oldest invoice first, book it to the cost center that owns the vendor's contract, and stop to ask the manager whenever the amount passes $10,000. Did I get that right?",
     confirm: "Confirmed — that's exactly how I do it.",
   },
   de: {
     debriefQuestions: [
       "Wann würdest du Rechnung 4471 ablehnen statt sie zu buchen?",
-      "Wen fragst du, wenn der Betrag über 10.000 € liegt?",
+      "Wen fragst du, wenn der Betrag über 10.000 $ liegt?",
       "Was prüfst du, bevor du auf Speichern drückst?",
     ],
     teachBack:
-      "Der Ablauf ist also: die älteste Rechnung zuerst öffnen, auf die Kostenstelle buchen, die den Lieferantenvertrag besitzt, und immer die Leitung fragen, wenn der Betrag über 10.000 € liegt. Habe ich das richtig verstanden?",
+      "Der Ablauf ist also: die älteste Rechnung zuerst öffnen, auf die Kostenstelle buchen, die den Lieferantenvertrag besitzt, und immer die Leitung fragen, wenn der Betrag über 10.000 $ liegt. Habe ich das richtig verstanden?",
     confirm: "Bestätigt — genau so mache ich es.",
   },
   es: {
     debriefQuestions: [
       "¿Cuándo rechazarías la factura 4471 en lugar de contabilizarla?",
-      "¿A quién preguntas cuando el importe supera los 10.000 €?",
+      "¿A quién preguntas cuando el importe supera los 10.000 $?",
       "¿Qué revisas antes de pulsar guardar?",
     ],
     teachBack:
-      "Entonces el proceso es: abrir primero la factura más antigua, contabilizarla en el centro de costos que posee el contrato del proveedor, y parar para preguntar al gerente cuando el importe supere 10.000 €. ¿Lo entendí bien?",
+      "Entonces el proceso es: abrir primero la factura más antigua, contabilizarla en el centro de costos que posee el contrato del proveedor, y parar para preguntar al gerente cuando el importe supere 10.000 $. ¿Lo entendí bien?",
     confirm: "Confirmado — exactamente así lo hago.",
   },
   fr: {
     debriefQuestions: [
       "Quand rejetteriez-vous la facture 4471 au lieu de la comptabiliser ?",
-      "Qui consultez-vous quand le montant dépasse 10 000 € ?",
+      "Qui consultez-vous quand le montant dépasse 10 000 $ ?",
       "Que vérifiez-vous avant d'appuyer sur enregistrer ?",
     ],
     teachBack:
-      "Donc le processus est : ouvrir d'abord la facture la plus ancienne, la comptabiliser sur le centre de coûts qui détient le contrat du fournisseur, et s'arrêter pour demander au responsable dès que le montant dépasse 10 000 €. Ai-je bien compris ?",
+      "Donc le processus est : ouvrir d'abord la facture la plus ancienne, la comptabiliser sur le centre de coûts qui détient le contrat du fournisseur, et s'arrêter pour demander au responsable dès que le montant dépasse 10 000 $. Ai-je bien compris ?",
     confirm: "Confirmé — c'est exactement comme ça que je procède.",
   },
   ja: {
     debriefQuestions: [
       "請求書4471を計上せず却下するのはどんな場合ですか？",
-      "金額が€10,000を超える場合、誰に確認しますか？",
+      "金額が$10,000を超える場合、誰に確認しますか？",
       "保存を押す前に何を確認しますか？",
     ],
     teachBack:
-      "つまりプロセスは：最も古い請求書を最初に開き、ベンダーの契約を保有するコストセンターに計上し、金額が€10,000を超えたら必ずマネージャーに確認する。これで合っていますか？",
+      "つまりプロセスは：最も古い請求書を最初に開き、ベンダーの契約を保有するコストセンターに計上し、金額が$10,000を超えたら必ずマネージャーに確認する。これで合っていますか？",
     confirm: "確認しました — まさにその通りです。",
   },
   pt: {
     debriefQuestions: [
       "Quando você rejeitaria a fatura 4471 em vez de lançá-la?",
-      "Quem você consulta quando o valor passa de €10.000?",
+      "Quem você consulta quando o valor passa de $10.000?",
       "O que você verifica antes de pressionar salvar?",
     ],
     teachBack:
-      "Então o processo é: abrir primeiro a fatura mais antiga, lançá-la no centro de custos que detém o contrato do fornecedor, e parar para perguntar ao gerente sempre que o valor passar de €10.000. Entendi certo?",
+      "Então o processo é: abrir primeiro a fatura mais antiga, lançá-la no centro de custos que detém o contrato do fornecedor, e parar para perguntar ao gerente sempre que o valor passar de $10.000. Entendi certo?",
     confirm: "Confirmado — é exatamente assim que eu faço.",
   },
   zh: {
     debriefQuestions: [
       "什么情况下你会拒绝发票 4471，而不是将其入账？",
-      "金额超过 €10,000 时，你会请示谁？",
+      "金额超过 $10,000 时，你会请示谁？",
       "点击保存之前，你会检查什么？",
     ],
     teachBack:
-      "流程是：先打开最早的发票，将其记入负责供应商合同的成本中心；金额超过 €10,000 时，暂停并请经理确认。我的理解正确吗？",
+      "流程是：先打开最早的发票，将其记入负责供应商合同的成本中心；金额超过 $10,000 时，暂停并请经理确认。我的理解正确吗？",
     confirm: "已确认，这正是我的处理方式。",
   },
 };
@@ -209,70 +209,70 @@ const teach: Record<string, TeachCopy> = {
     coaching: [
       "Great — you opened the oldest invoice first, just like the expert.",
       "Before you save: which cost center owns this vendor's contract?",
-      "Stop — the amount is €12,400. What did the expert say about the limit?",
+      "Stop — the amount is $12,400. What did the expert say about the limit?",
     ],
     guardrailAlert:
-      "Guardrail risk: €12,400 is above €10,000. The expert always asks the manager first — replay their screen moment before you save.",
+      "Guardrail risk: $12,400 is above $10,000. The expert always asks the manager first — replay their screen moment before you save.",
     masteryNote: "Guardrail awareness needs a second pass.",
   },
   de: {
     coaching: [
       "Gut — du hast zuerst die älteste Rechnung geöffnet, genau wie der Experte.",
       "Bevor du speicherst: welche Kostenstelle besitzt den Vertrag dieses Lieferanten?",
-      "Stopp — der Betrag ist 12.400 €. Was hat der Experte über die Grenze gesagt?",
+      "Stopp — der Betrag ist 12.400 $. Was hat der Experte über die Grenze gesagt?",
     ],
     guardrailAlert:
-      "Guardrail-Risiko: 12.400 € liegt über 10.000 €. Der Experte fragt immer zuerst die Leitung — spiel den Bildschirmmoment ab, bevor du speicherst.",
+      "Guardrail-Risiko: 12.400 $ liegt über 10.000 $. Der Experte fragt immer zuerst die Leitung — spiel den Bildschirmmoment ab, bevor du speicherst.",
     masteryNote: "Guardrail-Bewusstsein braucht einen zweiten Durchlauf.",
   },
   es: {
     coaching: [
       "Bien — abriste primero la factura más antigua, igual que el experto.",
       "Antes de guardar: ¿qué centro de costos posee el contrato de este proveedor?",
-      "Alto — el importe es 12.400 €. ¿Qué dijo el experto sobre el límite?",
+      "Alto — el importe es 12.400 $. ¿Qué dijo el experto sobre el límite?",
     ],
     guardrailAlert:
-      "Riesgo de guardrail: 12.400 € supera los 10.000 €. El experto siempre pregunta primero al gerente — reproduce su momento de pantalla antes de guardar.",
+      "Riesgo de guardrail: 12.400 $ supera los 10.000 $. El experto siempre pregunta primero al gerente — reproduce su momento de pantalla antes de guardar.",
     masteryNote: "La atención a los guardrails necesita una segunda pasada.",
   },
   fr: {
     coaching: [
       "Bien — vous avez ouvert la facture la plus ancienne d'abord, comme l'expert.",
       "Avant d'enregistrer : quel centre de coûts détient le contrat de ce fournisseur ?",
-      "Stop — le montant est de 12 400 €. Qu'a dit l'expert à propos de la limite ?",
+      "Stop — le montant est de 12 400 $. Qu'a dit l'expert à propos de la limite ?",
     ],
     guardrailAlert:
-      "Risque de garde-fou : 12 400 € dépasse 10 000 €. L'expert demande toujours au responsable d'abord — rejouez son moment d'écran avant d'enregistrer.",
+      "Risque de garde-fou : 12 400 $ dépasse 10 000 $. L'expert demande toujours au responsable d'abord — rejouez son moment d'écran avant d'enregistrer.",
     masteryNote: "La vigilance aux garde-fous nécessite un second passage.",
   },
   ja: {
     coaching: [
       "いいですね — エキスパートと同じように、最初に最も古い請求書を開きました。",
       "保存する前に：このベンダーの契約を保有するコストセンターはどこですか？",
-      "ストップ — 金額は€12,400です。上限についてエキスパートは何と言いましたか？",
+      "ストップ — 金額は$12,400です。上限についてエキスパートは何と言いましたか？",
     ],
     guardrailAlert:
-      "ガードレールリスク：€12,400は€10,000を超えています。エキスパートは必ず先にマネージャーに確認します — 保存する前に画面モーメントを再生してください。",
+      "ガードレールリスク：$12,400は$10,000を超えています。エキスパートは必ず先にマネージャーに確認します — 保存する前に画面モーメントを再生してください。",
     masteryNote: "ガードレールへの意識はもう一度練習が必要です。",
   },
   pt: {
     coaching: [
       "Ótimo — você abriu a fatura mais antiga primeiro, como o especialista.",
       "Antes de salvar: qual centro de custos detém o contrato deste fornecedor?",
-      "Pare — o valor é €12.400. O que o especialista disse sobre o limite?",
+      "Pare — o valor é $12.400. O que o especialista disse sobre o limite?",
     ],
     guardrailAlert:
-      "Risco de guardrail: €12.400 está acima de €10.000. O especialista sempre pergunta ao gerente primeiro — reproduza o momento de tela dele antes de salvar.",
+      "Risco de guardrail: $12.400 está acima de $10.000. O especialista sempre pergunta ao gerente primeiro — reproduza o momento de tela dele antes de salvar.",
     masteryNote: "A atenção aos guardrails precisa de uma segunda passada.",
   },
   zh: {
     coaching: [
       "很好，你像专家一样先打开了最早的发票。",
       "保存前，请判断哪个成本中心负责这家供应商的合同。",
-      "请暂停，金额是 €12,400。专家对限额是怎么说的？",
+      "请暂停，金额是 $12,400。专家对限额是怎么说的？",
     ],
     guardrailAlert:
-      "触发规则：€12,400 超过 €10,000。专家会先请经理确认，请在保存前回看对应的屏幕片段。",
+      "触发规则：$12,400 超过 $10,000。专家会先请经理确认，请在保存前回看对应的屏幕片段。",
     masteryNote: "还需要再练习一次限额规则。",
   },
 };
