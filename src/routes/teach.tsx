@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { CheckCircle2, RotateCcw } from "lucide-react";
-import { useEffect, useState } from "react";
+import { CheckCircle2, RotateCcw, Volume2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useSpokenCaption } from "@/hooks/use-spoken-caption";
 import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -54,11 +55,51 @@ function Teach() {
   const [amount, setAmount] = useState("12400");
   const [tutors, setTutors] = useState<Tutor[]>([DEFAULT_TUTOR]);
   const [selectedTutorId, setSelectedTutor] = useState(DEFAULT_TUTOR.id);
+  const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
+  const [activeLine, setActiveLine] = useState<number | null>(null);
+  const [alertSpoken, setAlertSpoken] = useState(false);
+  const spokenOnceRef = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     setTutors([DEFAULT_TUTOR, ...getTutors()]);
     setSelectedTutor(getSelectedTutorId());
   }, []);
+
+  const speakLine = (key: string, index: number, text: string) => {
+    setActiveLine(index);
+    speak(text, { locale: language.agentLocale });
+    spokenOnceRef.current.add(key);
+  };
+
+  // Greet with the first coaching line once per language.
+  useEffect(() => {
+    const key = `intro-${language.code}`;
+    if (spokenOnceRef.current.has(key)) return;
+    const timer = globalThis.setTimeout(() => speakLine(key, 0, copy.coaching[0] ?? ""), 800);
+    return () => globalThis.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language.code, language.agentLocale]);
+
+  // Speak the guardrail alert when a save is blocked.
+  useEffect(() => {
+    if (!blocked) {
+      setAlertSpoken(false);
+      return;
+    }
+    if (alertSpoken) return;
+    setAlertSpoken(true);
+    speakLine(`alert-${language.code}`, 2, copy.guardrailAlert);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blocked, alertSpoken]);
+
+  // Cancel speech when leaving the page or switching language.
+  useEffect(() => cancel, [cancel, language.code]);
+
+  const onFieldFocus = (key: string, index: number, text: string) => {
+    const onceKey = `${key}-${language.code}`;
+    if (spokenOnceRef.current.has(onceKey)) return;
+    speakLine(onceKey, index, text);
+  };
 
   const amountValue = Number(amount);
   const selectedTutor = tutors.find((tutor) => tutor.id === selectedTutorId) ?? DEFAULT_TUTOR;
@@ -148,6 +189,7 @@ function Teach() {
                     <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">Vendor</span>
                     <Input
                       value={vendor}
+                      onFocus={() => onFieldFocus("vendor", 0, copy.coaching[0] ?? "")}
                       onChange={(event) => {
                         setVendor(event.target.value);
                         resetResult();
@@ -161,6 +203,7 @@ function Teach() {
                       type="number"
                       min="0"
                       value={amount}
+                      onFocus={() => onFieldFocus("amount", 2, copy.coaching[2] ?? "")}
                       onChange={(event) => {
                         setAmount(event.target.value);
                         resetResult();
@@ -174,6 +217,7 @@ function Teach() {
                     </span>
                     <select
                       value={costCenter}
+                      onFocus={() => onFieldFocus("costCenter", 1, copy.coaching[1] ?? "")}
                       onChange={(e) => {
                         setCostCenter(e.target.value);
                         resetResult();
@@ -280,18 +324,28 @@ function Teach() {
               </label>
 
               <div className="mt-4 space-y-2">
-                {copy.coaching.map((c, i) => (
-                  <p
-                    key={i}
-                    className={`rounded-2xl rounded-tl-md px-3 py-2 text-[13px] leading-relaxed outline-1 ${
-                      i === 2 && blocked
-                        ? "bg-destructive/15 outline-destructive/50"
-                        : "bg-white/5 text-white/80 outline-white/10"
-                    }`}
-                  >
-                    {c}
-                  </p>
-                ))}
+                {copy.coaching.map((c, i) => {
+                  const isActive = activeLine === i && isSpeaking;
+                  return (
+                    <p
+                      key={i}
+                      className={`rounded-2xl rounded-tl-md px-3 py-2 text-[13px] leading-relaxed outline-1 transition ${
+                        i === 2 && blocked
+                          ? "bg-destructive/15 outline-destructive/50"
+                          : isActive
+                            ? "bg-electric/10 outline-electric/40"
+                            : "bg-white/5 text-white/80 outline-white/10"
+                      }`}
+                    >
+                      {isActive ? caption : c}
+                      {isActive && (
+                        <span className="ml-2 inline-flex items-center gap-1 align-middle text-[10px] uppercase tracking-[0.2em] text-electric">
+                          <Volume2 className="h-3 w-3" /> speaking
+                        </span>
+                      )}
+                    </p>
+                  );
+                })}
               </div>
 
               <div className="mt-auto pt-6">
