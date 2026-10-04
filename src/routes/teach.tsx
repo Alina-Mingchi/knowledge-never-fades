@@ -265,7 +265,7 @@ function Teach() {
               <div className="mt-5 flex flex-wrap gap-3">
                 <Button
                   onClick={trySave}
-                  disabled={saved || !vendor.trim() || !amount || amountValue < 0}
+                  disabled={saved || !formComplete}
                   variant="outline"
                   className="h-11 rounded-full px-6"
                 >
@@ -291,18 +291,18 @@ function Teach() {
 
               {blocked && (
                 <div className="enter-up mt-5 rounded-2xl bg-destructive/15 p-4 outline-1 outline-destructive/60">
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-destructive">
+                  <p className="text-xs uppercase tracking-[0.2em] text-destructive">
                     Save blocked · guardrail
                   </p>
-                  <p className="mt-1 text-[14px] leading-relaxed">{copy.guardrailAlert}</p>
-                  <p className="mt-3 rounded-xl bg-ink/60 p-3 text-[13px] italic text-electric/90 outline-1 outline-white/10">
+                  <p className="mt-1 text-base leading-relaxed">{copy.guardrailAlert}</p>
+                  <p className="mt-3 rounded-xl bg-ink/60 p-3 text-sm italic text-electric/90 outline-1 outline-white/10">
                     ▶ Expert replay · 01:12 — "Anything above $10,000 — I always check with the
                     manager first."
                   </p>
                 </div>
               )}
               {saved && (
-                <p className="enter-up mt-5 flex items-center gap-2 text-[13px] text-electric">
+                <p className="enter-up mt-5 flex items-center gap-2 text-sm text-electric">
                   <span className="h-2 w-2 rounded-full bg-electric" /> Saved after manager
                   approval.
                 </p>
