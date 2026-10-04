@@ -176,6 +176,16 @@ function MapPage() {
               );
             })}
           </div>
+          <div className="mt-4 flex justify-center">
+            <Button
+              type="button"
+              onClick={speakTeachBack}
+              className="group relative h-11 overflow-hidden rounded-full px-8 font-bold"
+            >
+              <span className="relative z-10">Summary</span>
+              <span className="sheen absolute inset-0 z-0 w-1/2 bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+            </Button>
+          </div>
         </div>
 
         {/* Step detail + debrief */}
