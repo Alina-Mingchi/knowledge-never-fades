@@ -324,18 +324,28 @@ function Teach() {
               </label>
 
               <div className="mt-4 space-y-2">
-                {copy.coaching.map((c, i) => (
-                  <p
-                    key={i}
-                    className={`rounded-2xl rounded-tl-md px-3 py-2 text-[13px] leading-relaxed outline-1 ${
-                      i === 2 && blocked
-                        ? "bg-destructive/15 outline-destructive/50"
-                        : "bg-white/5 text-white/80 outline-white/10"
-                    }`}
-                  >
-                    {c}
-                  </p>
-                ))}
+                {copy.coaching.map((c, i) => {
+                  const isActive = activeLine === i && isSpeaking;
+                  return (
+                    <p
+                      key={i}
+                      className={`rounded-2xl rounded-tl-md px-3 py-2 text-[13px] leading-relaxed outline-1 transition ${
+                        i === 2 && blocked
+                          ? "bg-destructive/15 outline-destructive/50"
+                          : isActive
+                            ? "bg-electric/10 outline-electric/40"
+                            : "bg-white/5 text-white/80 outline-white/10"
+                      }`}
+                    >
+                      {isActive ? caption : c}
+                      {isActive && (
+                        <span className="ml-2 inline-flex items-center gap-1 align-middle text-[10px] uppercase tracking-[0.2em] text-electric">
+                          <Volume2 className="h-3 w-3" /> speaking
+                        </span>
+                      )}
+                    </p>
+                  );
+                })}
               </div>
 
               <div className="mt-auto pt-6">
