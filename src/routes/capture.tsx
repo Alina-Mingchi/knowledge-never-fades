@@ -52,7 +52,7 @@ function Capture() {
   const [visible, setVisible] = useState(0);
   const [activeExchange, setActiveExchange] = useState<number | null>(null);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
-  const [source, setSource] = useState<CaptureSource>("demo");
+  const [source, setSource] = useState<CaptureSource | null>(null);
   const [uploadUrl, setUploadUrl] = useState("");
   const [uploadName, setUploadName] = useState("");
   const [screenStream, setScreenStream] = useState<MediaStream | null>(null);
@@ -67,6 +67,7 @@ function Capture() {
     sequenceTimers.current = [];
     setVisible(0);
     setActiveExchange(null);
+    if (source !== "demo") return;
 
     const playExchange = (index: number) => {
       const exchange = exchanges[index];
@@ -93,7 +94,7 @@ function Capture() {
       sequenceTimers.current = [];
       cancel();
     };
-  }, [cancel, language.agentLocale, language.code, speak, voiceEnabled]);
+  }, [cancel, language.agentLocale, language.code, speak, voiceEnabled, source]);
 
   const replayCurrentQuestion = () => {
     if (activeExchange === null) return;
