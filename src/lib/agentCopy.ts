@@ -136,8 +136,8 @@ const map: Record<string, MapCopy> = {
   en: {
     debriefQuestions: [
       "Which invoice did you open?",
-      "Who do you ask when the amount is over $10,000?",
-      "What do you check before you press save?",
+      "Double check the cost center.",
+      "Who do you ask when the amount is over $10,000, and what do you check before you save the invoice?",
     ],
     teachBack:
       "So the process is: open the oldest invoice first, book it to the cost center that owns the vendor's contract, and stop to ask the manager whenever the amount passes $10,000. Did I get that right?",
@@ -146,8 +146,8 @@ const map: Record<string, MapCopy> = {
   de: {
     debriefQuestions: [
       "Welche Rechnung hast du geöffnet?",
-      "Wen fragst du, wenn der Betrag über 10.000 $ liegt?",
-      "Was prüfst du, bevor du auf Speichern drückst?",
+      "Prüfe die Kostenstelle noch einmal.",
+      "Wen fragst du, wenn der Betrag über 10.000 $ liegt, und was prüfst du, bevor du die Rechnung speicherst?",
     ],
     teachBack:
       "Der Ablauf ist also: die älteste Rechnung zuerst öffnen, auf die Kostenstelle buchen, die den Lieferantenvertrag besitzt, und immer die Leitung fragen, wenn der Betrag über 10.000 $ liegt. Habe ich das richtig verstanden?",
@@ -156,8 +156,8 @@ const map: Record<string, MapCopy> = {
   es: {
     debriefQuestions: [
       "¿Qué factura abriste?",
-      "¿A quién preguntas cuando el importe supera los 10.000 $?",
-      "¿Qué revisas antes de pulsar guardar?",
+      "Verifica el centro de costos.",
+      "¿A quién preguntas cuando el importe supera los 10.000 $, y qué revisas antes de guardar la factura?",
     ],
     teachBack:
       "Entonces el proceso es: abrir primero la factura más antigua, contabilizarla en el centro de costos que posee el contrato del proveedor, y parar para preguntar al gerente cuando el importe supere 10.000 $. ¿Lo entendí bien?",
@@ -166,8 +166,8 @@ const map: Record<string, MapCopy> = {
   fr: {
     debriefQuestions: [
       "Quelle facture avez-vous ouverte ?",
-      "Qui consultez-vous quand le montant dépasse 10 000 $ ?",
-      "Que vérifiez-vous avant d'appuyer sur enregistrer ?",
+      "Vérifie le centre de coûts.",
+      "Qui consultez-vous quand le montant dépasse 10 000 $, et que vérifiez-vous avant d'enregistrer la facture ?",
     ],
     teachBack:
       "Donc le processus est : ouvrir d'abord la facture la plus ancienne, la comptabiliser sur le centre de coûts qui détient le contrat du fournisseur, et s'arrêter pour demander au responsable dès que le montant dépasse 10 000 $. Ai-je bien compris ?",
@@ -176,8 +176,8 @@ const map: Record<string, MapCopy> = {
   ja: {
     debriefQuestions: [
       "どの請求書を開きましたか？",
-      "金額が$10,000を超える場合、誰に確認しますか？",
-      "保存を押す前に何を確認しますか？",
+      "コストセンターを再確認してください。",
+      "金額が$10,000を超える場合、誰に確認しますか？また、請求書を保存する前に何を確認しますか？",
     ],
     teachBack:
       "つまりプロセスは：最も古い請求書を最初に開き、ベンダーの契約を保有するコストセンターに計上し、金額が$10,000を超えたら必ずマネージャーに確認する。これで合っていますか？",
@@ -186,8 +186,8 @@ const map: Record<string, MapCopy> = {
   pt: {
     debriefQuestions: [
       "Qual fatura você abriu?",
-      "Quem você consulta quando o valor passa de $10.000?",
-      "O que você verifica antes de pressionar salvar?",
+      "Confira o centro de custos.",
+      "Quem você consulta quando o valor passa de $10.000, e o que você verifica antes de salvar a fatura?",
     ],
     teachBack:
       "Então o processo é: abrir primeiro a fatura mais antiga, lançá-la no centro de custos que detém o contrato do fornecedor, e parar para perguntar ao gerente sempre que o valor passar de $10.000. Entendi certo?",
@@ -196,8 +196,8 @@ const map: Record<string, MapCopy> = {
   zh: {
     debriefQuestions: [
       "你打开的是哪张发票？",
-      "金额超过 $10,000 时，你会请示谁？",
-      "点击保存之前，你会检查什么？",
+      "再次核对成本中心。",
+      "金额超过 $10,000 时，你会请示谁？保存发票之前，你会检查什么？",
     ],
     teachBack:
       "流程是：先打开最早的发票，将其记入负责供应商合同的成本中心；金额超过 $10,000 时，暂停并请经理确认。我的理解正确吗？",
