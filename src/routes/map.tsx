@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { LiveAgentPanel } from "@/components/LiveAgentPanel";
 import { useEffect, useRef, useState } from "react";
 import { RotateCcw, Volume2 } from "lucide-react";
 import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
@@ -141,6 +142,14 @@ function MapPage() {
             <span className="text-electric">in the expert's words.</span>
           </h1>
         </div>
+
+        <LiveAgentPanel
+          role="captureMap"
+          title="Debrief & teach-back"
+          onStart={cancel}
+          dynamicVariables={{ module: "map" }}
+          context={`Module: Map debrief. Work Map steps: ${steps.map((st, i) => `${i + 1}. ${JSON.stringify(st)}`).join(" ")}. Ask at least three follow-up questions not answered during capture, then explain the whole process back and ask the expert to confirm or correct it.`}
+        />
 
         {/* Timeline */}
         <div className="enter-up" style={{ animationDelay: "0.06s" }}>
