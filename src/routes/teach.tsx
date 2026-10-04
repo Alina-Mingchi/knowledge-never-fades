@@ -55,11 +55,51 @@ function Teach() {
   const [amount, setAmount] = useState("12400");
   const [tutors, setTutors] = useState<Tutor[]>([DEFAULT_TUTOR]);
   const [selectedTutorId, setSelectedTutor] = useState(DEFAULT_TUTOR.id);
+  const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
+  const [activeLine, setActiveLine] = useState<number | null>(null);
+  const [alertSpoken, setAlertSpoken] = useState(false);
+  const spokenOnceRef = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     setTutors([DEFAULT_TUTOR, ...getTutors()]);
     setSelectedTutor(getSelectedTutorId());
   }, []);
+
+  const speakLine = (key: string, index: number, text: string) => {
+    setActiveLine(index);
+    speak(text, { locale: language.agentLocale });
+    spokenOnceRef.current.add(key);
+  };
+
+  // Greet with the first coaching line once per language.
+  useEffect(() => {
+    const key = `intro-${language.code}`;
+    if (spokenOnceRef.current.has(key)) return;
+    const timer = globalThis.setTimeout(() => speakLine(key, 0, copy.coaching[0] ?? ""), 800);
+    return () => globalThis.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language.code, language.agentLocale]);
+
+  // Speak the guardrail alert when a save is blocked.
+  useEffect(() => {
+    if (!blocked) {
+      setAlertSpoken(false);
+      return;
+    }
+    if (alertSpoken) return;
+    setAlertSpoken(true);
+    speakLine(`alert-${language.code}`, 2, copy.guardrailAlert);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blocked, alertSpoken]);
+
+  // Cancel speech when leaving the page or switching language.
+  useEffect(() => cancel, [cancel, language.code]);
+
+  const onFieldFocus = (key: string, index: number, text: string) => {
+    const onceKey = `${key}-${language.code}`;
+    if (spokenOnceRef.current.has(onceKey)) return;
+    speakLine(onceKey, index, text);
+  };
 
   const amountValue = Number(amount);
   const selectedTutor = tutors.find((tutor) => tutor.id === selectedTutorId) ?? DEFAULT_TUTOR;
