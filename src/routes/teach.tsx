@@ -319,19 +319,19 @@ function Teach() {
                     <span className="h-2 w-2 rounded-full bg-electric pulse-dot" />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold">{selectedTutor.name}</p>
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-white/40">
+                    <p className="text-base font-semibold">{selectedTutor.name}</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-white/40">
                       Coaching · {language.agentLocale}
                     </p>
                   </div>
                 </div>
-                <span className="rounded-full bg-electric/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-electric outline-1 outline-electric/30">
+                <span className="rounded-full bg-electric/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-electric outline-1 outline-electric/30">
                   {language.short}
                 </span>
               </div>
 
               <label className="mt-4 block">
-                <span className="mb-2 block text-[10px] uppercase tracking-[0.2em] text-white/40">
+                <span className="mb-2 block text-xs uppercase tracking-[0.2em] text-white/40">
                   Select tutor
                 </span>
                 <Select
@@ -341,7 +341,7 @@ function Teach() {
                     setSelectedTutorId(value);
                   }}
                 >
-                  <SelectTrigger className="h-10 bg-ink/60">
+                  <SelectTrigger className="h-11 bg-ink/60 text-base">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -360,7 +360,7 @@ function Teach() {
                   return (
                     <p
                       key={i}
-                      className={`rounded-2xl rounded-tl-md px-3 py-2 text-[13px] leading-relaxed outline-1 transition ${
+                      className={`rounded-2xl rounded-tl-md px-4 py-3 text-sm leading-relaxed outline-1 transition ${
                         i === 2 && blocked
                           ? "bg-destructive/15 outline-destructive/50"
                           : isActive
