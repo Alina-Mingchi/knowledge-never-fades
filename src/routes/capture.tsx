@@ -186,7 +186,7 @@ function Capture() {
             onClick={() => chooseSource("demo")}
             className="h-auto justify-start rounded-lg px-4 py-3"
           >
-            <Play /> Current demo
+            <Play /> Toy example demo
           </Button>
           <label
             className={`flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium transition ${
