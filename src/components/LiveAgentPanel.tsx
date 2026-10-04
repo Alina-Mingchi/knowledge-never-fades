@@ -32,7 +32,7 @@ export function LiveAgentPanel(props: LiveAgentPanelProps) {
   );
 }
 
-function LiveAgentInner({ role, title, context, dynamicVariables, onStart }: LiveAgentPanelProps) {
+function LiveAgentInner({ role, title, context, dynamicVariables, onStart, onOfflineStart }: LiveAgentPanelProps) {
   const { language } = useLanguage();
   const agentId = getAgentId(role);
   const [lines, setLines] = useState<Line[]>([]);
@@ -105,9 +105,16 @@ function LiveAgentInner({ role, title, context, dynamicVariables, onStart }: Liv
             <PhoneOff className="mr-2 h-4 w-4" /> End conversation
           </Button>
         ) : (
-          <Button onClick={start} disabled={!agentId}>
-            <Mic className="mr-2 h-4 w-4" /> Start live conversation
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button onClick={start} disabled={!agentId}>
+              <Mic className="mr-2 h-4 w-4" /> Start live conversation
+            </Button>
+            {onOfflineStart && (
+              <Button variant="outline" onClick={onOfflineStart}>
+                <AudioLines className="mr-2 h-4 w-4" /> Start offline conversation
+              </Button>
+            )}
+          </div>
         )}
       </div>
       {error && <p className="mt-3 text-sm text-destructive">{error}</p>}
