@@ -32,4 +32,4 @@ npm run dev
 
 ## Moonshot
 
-Further development plan includes integration of not only pre-defined tasks, but also adaptive to new tasks via screen-recording, or even live video. 
+Further development plan includes integration of not only pre-defined tasks, but also adapt to new tasks via screen-recording, or even live video such as for more physical tasks. 
