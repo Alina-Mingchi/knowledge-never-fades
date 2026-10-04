@@ -134,6 +134,7 @@ function MapPage() {
           role="captureMap"
           title="Debrief & teach-back"
           onStart={cancel}
+          onOfflineStart={() => speakQuestion(0)}
           dynamicVariables={{ module: "map" }}
           context={`Module: Map debrief. Work Map steps: ${steps.map((st, i) => `${i + 1}. ${JSON.stringify(st)}`).join(" ")}. Ask at least three follow-up questions not answered during capture, then explain the whole process back and ask the expert to confirm or correct it.`}
         />

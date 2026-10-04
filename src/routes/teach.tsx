@@ -194,6 +194,17 @@ function Teach() {
           role="teach"
           title={`Tutor ${tutors.find((t) => t.id === selectedTutorId)?.name ?? "Mira"}`}
           onStart={cancel}
+          onOfflineStart={() => {
+            const selectedId = getSelectedTutorId();
+            const selectedName =
+              [...getTutors(), DEFAULT_TUTOR].find((tutor) => tutor.id === selectedId)?.name ?? "";
+            const usesGreeting = usesTutorialGreeting(selectedName);
+            speakLine(
+              `offline-${Date.now()}`,
+              usesGreeting ? GREETING_LINE : 0,
+              usesGreeting ? copy.tutorialGreeting : (copy.coaching[0] ?? ""),
+            );
+          }}
           dynamicVariables={{ module: "teach", tutor_name: tutors.find((t) => t.id === selectedTutorId)?.name ?? "Mira" }}
           context={`Trainee screen: invoice 5203, vendor "${vendor || "blank"}", amount $${amount || "blank"}, due ${due || "blank"}, cost center ${costCenter || "blank"}, saved: ${saved ? "yes" : "no"}${blocked ? ", save BLOCKED by guardrail (amount above $10,000 needs manager approval)" : ""}. Expert rule: invoices above $10,000 need manager approval before saving; marketing costs go to cost center 0400, not 4711.`}
         />
