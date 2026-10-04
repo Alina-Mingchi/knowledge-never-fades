@@ -200,7 +200,7 @@ function Teach() {
 
         <div className="grid gap-6 lg:grid-cols-12">
           {/* New hire screen */}
-          <div className="lg:col-span-7 enter-up" style={{ animationDelay: "0.08s" }}>
+          <div className="lg:order-2 lg:col-span-7 enter-up" style={{ animationDelay: "0.14s" }}>
             <GlassPanel className="h-full">
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <span className="text-xs uppercase tracking-[0.2em] text-white/40">
@@ -332,7 +332,7 @@ function Teach() {
           </div>
 
           {/* Tutor panel */}
-          <div className="lg:col-span-5 enter-up" style={{ animationDelay: "0.14s" }}>
+          <div className="order-first lg:order-1 lg:col-span-5 enter-up" style={{ animationDelay: "0.08s" }}>
             <GlassPanel className="flex h-full flex-col">
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
                 <div className="flex items-center gap-3">

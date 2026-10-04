@@ -209,7 +209,7 @@ const teach: Record<string, TeachCopy> = {
   en: {
     tutorialGreeting: "Let's start the tutorial on how to send an invoice.",
     coaching: [
-      "Who are you sending the invoice to?",
+      "Who are you sending the invoice to? Use the full name of the company or person.",
       "Before you save: which cost center owns this vendor's contract?",
       "Stop — the amount is {amount}. What did the expert say about the limit?",
     ],
@@ -220,7 +220,7 @@ const teach: Record<string, TeachCopy> = {
   de: {
     tutorialGreeting: "Beginnen wir mit dem Tutorial zum Senden einer Rechnung.",
     coaching: [
-      "An wen geht diese Rechnung?",
+      "An wen geht diese Rechnung? Verwende den vollständigen Namen der Firma oder Person.",
       "Bevor du speicherst: welche Kostenstelle besitzt den Vertrag dieses Lieferanten?",
       "Stopp — der Betrag ist {amount}. Was hat der Experte über die Grenze gesagt?",
     ],
@@ -231,7 +231,7 @@ const teach: Record<string, TeachCopy> = {
   es: {
     tutorialGreeting: "Empecemos el tutorial sobre cómo enviar una factura.",
     coaching: [
-      "¿A quién va dirigida la factura?",
+      "¿A quién va dirigida la factura? Usa el nombre completo de la empresa o persona.",
       "Antes de guardar: ¿qué centro de costos posee el contrato de este proveedor?",
       "Alto — el importe es {amount}. ¿Qué dijo el experto sobre el límite?",
     ],
@@ -242,7 +242,7 @@ const teach: Record<string, TeachCopy> = {
   fr: {
     tutorialGreeting: "Commençons le tutoriel sur l'envoi d'une facture.",
     coaching: [
-      "À qui est destinée cette facture ?",
+      "À qui est destinée cette facture ? Utilise le nom complet de l'entreprise ou de la personne.",
       "Avant d'enregistrer : quel centre de coûts détient le contrat de ce fournisseur ?",
       "Stop — le montant est de {amount}. Qu'a dit l'expert à propos de la limite ?",
     ],
@@ -253,7 +253,7 @@ const teach: Record<string, TeachCopy> = {
   ja: {
     tutorialGreeting: "請求書の送り方のチュートリアルを始めましょう。",
     coaching: [
-      "この請求書はどなた宛てですか？",
+      "この請求書はどなた宛てですか？会社または個人のフルネームを入力してください。",
       "保存する前に：このベンダーの契約を保有するコストセンターはどこですか？",
       "ストップ — 金額は{amount}です。上限についてエキスパートは何と言いましたか？",
     ],
@@ -264,7 +264,7 @@ const teach: Record<string, TeachCopy> = {
   pt: {
     tutorialGreeting: "Vamos começar o tutorial de como enviar uma fatura.",
     coaching: [
-      "Para quem é essa fatura?",
+      "Para quem é essa fatura? Use o nome completo da empresa ou da pessoa.",
       "Antes de salvar: qual centro de custos detém o contrato deste fornecedor?",
       "Pare — o valor é {amount}. O que o especialista disse sobre o limite?",
     ],
@@ -275,7 +275,7 @@ const teach: Record<string, TeachCopy> = {
   zh: {
     tutorialGreeting: "我们开始学习如何发送发票吧。",
     coaching: [
-      "这张发票是开给谁的？",
+      "这张发票是开给谁的？请使用公司或个人的全名。",
       "保存前，请判断哪个成本中心负责这家供应商的合同。",
       "请暂停，金额是 {amount}。专家对限额是怎么说的？",
     ],
