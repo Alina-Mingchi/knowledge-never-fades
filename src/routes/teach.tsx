@@ -195,36 +195,50 @@ function Teach() {
               </div>
 
               <div className="mt-5 rounded-2xl bg-ink/60 p-5 outline-1 outline-white/10">
-                <p className="font-display text-2xl tracking-tight">Invoice #5203</p>
+                <p className="font-display text-3xl tracking-tight">Invoice #5203</p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  <label className="rounded-xl bg-white/5 p-3 outline-1 outline-white/10">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">Vendor</span>
+                  <label className="rounded-xl bg-white/5 p-4 outline-1 outline-white/10">
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/40">Vendor</span>
                     <Input
                       value={vendor}
+                      placeholder="e.g. Brightline Media AG"
                       onFocus={() => onFieldFocus("vendor", 0, copy.coaching[0] ?? "")}
                       onChange={(event) => {
                         setVendor(event.target.value);
                         resetResult();
                       }}
-                      className="mt-1 h-8 border-0 bg-transparent px-0 shadow-none"
+                      className="mt-1 h-11 border-0 bg-transparent px-0 text-base shadow-none"
                     />
                   </label>
-                  <label className="rounded-xl bg-white/5 p-3 outline-1 outline-white/10">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">Amount ($)</span>
+                  <label className="rounded-xl bg-white/5 p-4 outline-1 outline-white/10">
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/40">Amount ($)</span>
                     <Input
                       type="number"
                       min="0"
                       value={amount}
+                      placeholder="0"
                       onFocus={() => onFieldFocus("amount", 2, copy.coaching[2] ?? "")}
                       onChange={(event) => {
                         setAmount(event.target.value);
                         resetResult();
                       }}
-                      className="mt-1 h-8 border-0 bg-transparent px-0 text-electric shadow-none"
+                      className="mt-1 h-11 border-0 bg-transparent px-0 text-base text-electric shadow-none"
                     />
                   </label>
-                  <label className="rounded-xl bg-white/5 p-3 outline-1 outline-electric/40 sm:col-span-2">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                  <label className="rounded-xl bg-white/5 p-4 outline-1 outline-white/10">
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/40">Due date</span>
+                    <Input
+                      type="date"
+                      value={due}
+                      onChange={(event) => {
+                        setDue(event.target.value);
+                        resetResult();
+                      }}
+                      className="mt-1 h-11 border-0 bg-transparent px-0 text-base shadow-none"
+                    />
+                  </label>
+                  <label className="rounded-xl bg-white/5 p-4 outline-1 outline-electric/40">
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/40">
                       Cost center
                     </span>
                     <select
@@ -234,10 +248,15 @@ function Teach() {
                         setCostCenter(e.target.value);
                         resetResult();
                       }}
-                      className="mt-1 block w-full rounded-md bg-ink px-2 py-1.5 text-sm outline-1 outline-white/15"
+                      className="mt-1 block w-full rounded-md bg-ink px-3 py-2.5 text-base outline-1 outline-white/15"
                     >
+                      <option value="" disabled>
+                        Select cost center
+                      </option>
                       <option value="4711">4711 · General admin</option>
                       <option value="0400">0400 · Marketing</option>
+                      <option value="3592">3592 · Finance</option>
+                      <option value="3407">3407 · R&D</option>
                     </select>
                   </label>
                 </div>
