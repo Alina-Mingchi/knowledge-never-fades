@@ -1,7 +1,9 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { RotateCcw, Volume2 } from "lucide-react";
 import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
 import { Button } from "@/components/ui/button";
+import { useSpokenCaption } from "@/hooks/use-spoken-caption";
 import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/lib/language";
 import { getCaptureCopy, getMapCopy } from "@/lib/agentCopy";
@@ -43,7 +45,52 @@ function MapPage() {
   const map = getMapCopy(language.code);
   const [confirmed, setConfirmed] = useState(false);
   const [tutorName, setTutorName] = useState("");
+  const [visibleQuestions, setVisibleQuestions] = useState(0);
+  const [activeSpeech, setActiveSpeech] = useState<number | null>(null);
+  const [teachBackVisible, setTeachBackVisible] = useState(false);
+  const [narrationRun, setNarrationRun] = useState(0);
+  const sequenceTimers = useRef<number[]>([]);
+  const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    cancel();
+    sequenceTimers.current.forEach(window.clearTimeout);
+    sequenceTimers.current = [];
+    setVisibleQuestions(0);
+    setActiveSpeech(null);
+    setTeachBackVisible(false);
+
+    const playLine = (index: number) => {
+      const isTeachBack = index === map.debriefQuestions.length;
+      const text = isTeachBack ? map.teachBack : map.debriefQuestions[index];
+      if (!text) return;
+
+      setActiveSpeech(index);
+      if (isTeachBack) setTeachBackVisible(true);
+      else setVisibleQuestions(index + 1);
+
+      speak(text, {
+        locale: language.agentLocale,
+        onComplete: () => {
+          if (isTeachBack) {
+            setActiveSpeech(null);
+            return;
+          }
+          const timer = window.setTimeout(() => playLine(index + 1), 900);
+          sequenceTimers.current.push(timer);
+        },
+      });
+    };
+
+    const firstTimer = window.setTimeout(() => playLine(0), 900);
+    sequenceTimers.current.push(firstTimer);
+    return () => {
+      sequenceTimers.current.forEach(window.clearTimeout);
+      sequenceTimers.current = [];
+      cancel();
+    };
+  }, [cancel, language.agentLocale, language.code, map.debriefQuestions, map.teachBack, narrationRun, speak]);
 
   const createTutor = () => {
     const tutor = saveTutor(tutorName, language.code);
@@ -168,23 +215,51 @@ function MapPage() {
 
           <div className="lg:col-span-5 enter-up" style={{ animationDelay: "0.14s" }}>
             <GlassPanel className="flex h-full flex-col">
-              <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-electric/90">
-                Spoken debrief · {language.agentLocale}
-              </p>
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-electric/90">
+                  {isSpeaking ? "Speaking" : "Spoken debrief"} · {language.agentLocale}
+                </p>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setNarrationRun((run) => run + 1)}
+                  aria-label="Replay spoken debrief"
+                  title="Replay spoken debrief"
+                >
+                  {isSpeaking ? <Volume2 /> : <RotateCcw />}
+                </Button>
+              </div>
               <ol className="mt-4 space-y-2">
-                {map.debriefQuestions.map((q, i) => (
+                {map.debriefQuestions.slice(0, visibleQuestions).map((q, i) => (
                   <li
                     key={i}
-                    className="rounded-2xl bg-white/5 px-3 py-2 text-[13px] leading-relaxed text-white/80 outline-1 outline-white/10"
+                    className={`min-h-10 rounded-2xl px-3 py-2 text-[13px] leading-relaxed outline-1 transition ${
+                      activeSpeech === i
+                        ? "bg-electric/10 text-white/90 outline-electric/30"
+                        : "bg-white/5 text-white/80 outline-white/10"
+                    }`}
                   >
                     <span className="mr-1 text-electric/70">Q{i + 1}.</span>
-                    {q}
+                    {activeSpeech === i ? caption || "…" : q}
+                    {activeSpeech === i && isSpeaking && (
+                      <span className="ml-1 inline-block h-3 w-px bg-electric pulse-dot" aria-hidden="true" />
+                    )}
                   </li>
                 ))}
               </ol>
               <div className="mt-5 rounded-2xl bg-electric/10 p-4 outline-1 outline-electric/30">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-electric">Teach-back</p>
-                <p className="mt-2 text-[13px] leading-relaxed text-white/85">{map.teachBack}</p>
+                <p className="mt-2 min-h-10 text-[13px] leading-relaxed text-white/85">
+                  {teachBackVisible
+                    ? activeSpeech === map.debriefQuestions.length
+                      ? caption || "…"
+                      : map.teachBack
+                    : "The agent will explain the process after the debrief questions."}
+                  {activeSpeech === map.debriefQuestions.length && isSpeaking && (
+                    <span className="ml-1 inline-block h-3 w-px bg-electric pulse-dot" aria-hidden="true" />
+                  )}
+                </p>
               </div>
               <div className="mt-auto pt-5">
                 {confirmed ? (
