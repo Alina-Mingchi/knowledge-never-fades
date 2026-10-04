@@ -50,11 +50,22 @@ function MapPage() {
   const [activeSpeech, setActiveSpeech] = useState<number | null>(null);
   const [teachBackVisible, setTeachBackVisible] = useState(false);
   const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
+  const [liveActive, setLiveActive] = useState(false);
+  const liveActiveRef = useRef(false);
   const navigate = useNavigate();
+
+  // While the live agent is connected, the scripted voice stays silent.
+  useEffect(() => {
+    liveActiveRef.current = liveActive;
+    if (liveActive) {
+      cancel();
+      setActiveSpeech(null);
+    }
+  }, [liveActive, cancel]);
 
   const speakQuestion = (index: number) => {
     const text = map.debriefQuestions[index];
-    if (!text) return;
+    if (!text || liveActiveRef.current) return;
     setActiveSpeech(index);
     setVisibleQuestions((count) => Math.max(count, index + 1));
     speak(text, {
@@ -64,6 +75,7 @@ function MapPage() {
   };
 
   const speakTeachBack = () => {
+    if (liveActiveRef.current) return;
     setTeachBackVisible(true);
     setActiveSpeech(map.debriefQuestions.length);
     speak(map.teachBack, {
@@ -134,6 +146,7 @@ function MapPage() {
           role="captureMap"
           title="Debrief & teach-back"
           onStart={cancel}
+          onStatusChange={setLiveActive}
           onOfflineStart={() => speakQuestion(0)}
           dynamicVariables={{ module: "map" }}
           context={`Module: Map debrief. Work Map steps: ${steps.map((st, i) => `${i + 1}. ${JSON.stringify(st)}`).join(" ")}. Ask at least three follow-up questions not answered during capture, then explain the whole process back and ask the expert to confirm or correct it.`}
