@@ -48,12 +48,13 @@ export const Route = createFileRoute("/teach")({
 function Teach() {
   const { language } = useLanguage();
   const copy = getTeachCopy(language.code);
-  const [costCenter, setCostCenter] = useState("4711");
+  const [costCenter, setCostCenter] = useState("");
   const [blocked, setBlocked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [finished, setFinished] = useState(false);
-  const [vendor, setVendor] = useState("Brightline Media AG");
-  const [amount, setAmount] = useState("12400");
+  const [vendor, setVendor] = useState("");
+  const [amount, setAmount] = useState("");
+  const [due, setDue] = useState("");
   const [tutors, setTutors] = useState<Tutor[]>([DEFAULT_TUTOR]);
   const [selectedTutorId, setSelectedTutor] = useState(DEFAULT_TUTOR.id);
   const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
@@ -104,6 +105,7 @@ function Teach() {
 
   const amountValue = Number(amount);
   const selectedTutor = tutors.find((tutor) => tutor.id === selectedTutorId) ?? DEFAULT_TUTOR;
+  const formComplete = Boolean(vendor.trim() && amount && amountValue > 0 && costCenter && due);
 
   const resetResult = () => {
     setBlocked(false);
