@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getTutors, normalizeTutorName, saveTutor } from "@/lib/tutors";
-import { requiresManagerApproval } from "@/lib/tutorial";
+import { requiresManagerApproval, usesTutorialGreeting } from "@/lib/tutorial";
 
 describe("tutorial guardrail", () => {
   it("requires approval only above $10,000", () => {
@@ -26,5 +26,14 @@ describe("tutor storage", () => {
       createdAt: 123,
     });
     expect(getTutors(storage)).toEqual([tutor]);
+  });
+});
+
+describe("teach greeting", () => {
+  it("uses the tutorial intro only for the Invoice Navigator tutor", () => {
+    expect(usesTutorialGreeting("Invoice Navigator")).toBe(true);
+    expect(usesTutorialGreeting("  invoice   navigator ")).toBe(true);
+    expect(usesTutorialGreeting("Mira")).toBe(false);
+    expect(usesTutorialGreeting("Finance Guide")).toBe(false);
   });
 });

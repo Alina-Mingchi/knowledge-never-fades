@@ -22,7 +22,9 @@ import {
   setSelectedTutorId,
   type Tutor,
 } from "@/lib/tutors";
-import { requiresManagerApproval } from "@/lib/tutorial";
+import { requiresManagerApproval, usesTutorialGreeting } from "@/lib/tutorial";
+
+const GREETING_LINE = -1;
 
 export const Route = createFileRoute("/teach")({
   head: () => ({
@@ -73,11 +75,18 @@ function Teach() {
     spokenOnceRef.current.add(key);
   };
 
-  // Greet with the first coaching line once per language.
+  // Greet on arrival: the Invoice Navigator tutor opens with the tutorial intro,
+  // every other tutor with the first coaching line.
   useEffect(() => {
     const key = `intro-${language.code}`;
     if (spokenOnceRef.current.has(key)) return;
-    const timer = globalThis.setTimeout(() => speakLine(key, 0, copy.coaching[0] ?? ""), 800);
+    const timer = globalThis.setTimeout(() => {
+      const selectedId = getSelectedTutorId();
+      const selectedName =
+        [...getTutors(), DEFAULT_TUTOR].find((tutor) => tutor.id === selectedId)?.name ?? "";
+      const usesGreeting = usesTutorialGreeting(selectedName);
+      speakLine(key, usesGreeting ? GREETING_LINE : 0, usesGreeting ? copy.tutorialGreeting : (copy.coaching[0] ?? ""));
+    }, 800);
     return () => globalThis.clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language.code, language.agentLocale]);
@@ -105,6 +114,7 @@ function Teach() {
 
   const amountValue = Number(amount);
   const selectedTutor = tutors.find((tutor) => tutor.id === selectedTutorId) ?? DEFAULT_TUTOR;
+  const introGreetingActive = usesTutorialGreeting(selectedTutor.name);
   const formComplete = Boolean(vendor.trim() && amount && amountValue > 0 && costCenter && due);
 
   const resetResult = () => {
@@ -359,6 +369,22 @@ function Teach() {
               </label>
 
               <div className="mt-4 space-y-2">
+                {introGreetingActive && (
+                  <p
+                    className={`rounded-2xl rounded-tl-md px-4 py-3 text-sm leading-relaxed outline-1 transition ${
+                      activeLine === GREETING_LINE && isSpeaking
+                        ? "bg-electric/10 outline-electric/40"
+                        : "bg-white/5 text-white/80 outline-white/10"
+                    }`}
+                  >
+                    {activeLine === GREETING_LINE && isSpeaking ? caption : copy.tutorialGreeting}
+                    {activeLine === GREETING_LINE && isSpeaking && (
+                      <span className="ml-2 inline-flex items-center gap-1 align-middle text-xs uppercase tracking-[0.2em] text-electric">
+                        <Volume2 className="h-3 w-3" /> speaking
+                      </span>
+                    )}
+                  </p>
+                )}
                 {copy.coaching.map((c, i) => {
                   const isActive = activeLine === i && isSpeaking;
                   return (
