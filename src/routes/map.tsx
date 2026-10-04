@@ -49,49 +49,36 @@ function MapPage() {
   const [visibleQuestions, setVisibleQuestions] = useState(0);
   const [activeSpeech, setActiveSpeech] = useState<number | null>(null);
   const [teachBackVisible, setTeachBackVisible] = useState(false);
-  const [narrationRun, setNarrationRun] = useState(0);
-  const sequenceTimers = useRef<number[]>([]);
   const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
   const navigate = useNavigate();
 
+  const speakQuestion = (index: number) => {
+    const text = map.debriefQuestions[index];
+    if (!text) return;
+    setActiveSpeech(index);
+    setVisibleQuestions((count) => Math.max(count, index + 1));
+    speak(text, {
+      locale: language.agentLocale,
+      onComplete: () => setActiveSpeech(null),
+    });
+  };
+
+  const speakTeachBack = () => {
+    setTeachBackVisible(true);
+    setActiveSpeech(map.debriefQuestions.length);
+    speak(map.teachBack, {
+      locale: language.agentLocale,
+      onComplete: () => setActiveSpeech(null),
+    });
+  };
+
   useEffect(() => {
     cancel();
-    sequenceTimers.current.forEach(window.clearTimeout);
-    sequenceTimers.current = [];
     setVisibleQuestions(0);
     setActiveSpeech(null);
     setTeachBackVisible(false);
-
-    const playLine = (index: number) => {
-      const isTeachBack = index === map.debriefQuestions.length;
-      const text = isTeachBack ? map.teachBack : map.debriefQuestions[index];
-      if (!text) return;
-
-      setActiveSpeech(index);
-      if (isTeachBack) setTeachBackVisible(true);
-      else setVisibleQuestions(index + 1);
-
-      speak(text, {
-        locale: language.agentLocale,
-        onComplete: () => {
-          if (isTeachBack) {
-            setActiveSpeech(null);
-            return;
-          }
-          const timer = window.setTimeout(() => playLine(index + 1), 900);
-          sequenceTimers.current.push(timer);
-        },
-      });
-    };
-
-    const firstTimer = window.setTimeout(() => playLine(0), 900);
-    sequenceTimers.current.push(firstTimer);
-    return () => {
-      sequenceTimers.current.forEach(window.clearTimeout);
-      sequenceTimers.current = [];
-      cancel();
-    };
-  }, [cancel, language.agentLocale, language.code, map.debriefQuestions, map.teachBack, narrationRun, speak]);
+    return () => cancel();
+  }, [cancel, language.agentLocale, language.code]);
 
   const createTutor = () => {
     const tutor = saveTutor(tutorName, language.code);
