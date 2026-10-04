@@ -388,7 +388,13 @@ function Teach() {
                     {mastered}
                     <span className="text-lg text-white/40">/3</span>
                   </span>
-...
+                  <span className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
+                    <span
+                      className="block h-2 rounded-full bg-electric transition-all duration-700"
+                      style={{ width: `${(mastered / 3) * 100}%` }}
+                    />
+                  </span>
+                </div>
                 <p className="mt-2 text-sm text-white/50">{copy.masteryNote}</p>
                 <Link
                   to="/"
