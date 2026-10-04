@@ -198,7 +198,7 @@ function Teach() {
                     />
                   </label>
                   <label className="rounded-xl bg-white/5 p-3 outline-1 outline-white/10">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">Amount (€)</span>
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">Amount ($)</span>
                     <Input
                       type="number"
                       min="0"
@@ -265,7 +265,7 @@ function Teach() {
                   </p>
                   <p className="mt-1 text-[14px] leading-relaxed">{copy.guardrailAlert}</p>
                   <p className="mt-3 rounded-xl bg-ink/60 p-3 text-[13px] italic text-electric/90 outline-1 outline-white/10">
-                    ▶ Expert replay · 01:12 — "Anything above €10,000 — I always check with the
+                    ▶ Expert replay · 01:12 — "Anything above $10,000 — I always check with the
                     manager first."
                   </p>
                 </div>

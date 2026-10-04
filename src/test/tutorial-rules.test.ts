@@ -3,7 +3,7 @@ import { getTutors, normalizeTutorName, saveTutor } from "@/lib/tutors";
 import { requiresManagerApproval } from "@/lib/tutorial";
 
 describe("tutorial guardrail", () => {
-  it("requires approval only above €10,000", () => {
+  it("requires approval only above $10,000", () => {
     expect(requiresManagerApproval(10000)).toBe(false);
     expect(requiresManagerApproval(10001)).toBe(true);
   });

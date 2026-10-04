@@ -119,7 +119,7 @@ function MapPage() {
       title: capture.events[2] ?? "",
       decision: "Pause before saving — escalate to the manager",
       reason: capture.answers[2] ?? "",
-      guardrail: "Stop & ask if amount > €10,000",
+      guardrail: "Stop & ask if amount > $10,000",
     },
   ];
   const [active, setActive] = useState(0);
