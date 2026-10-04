@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { FileVideo, MonitorUp, Play, Square } from "lucide-react";
+import { FileVideo, MonitorUp, Play, RotateCcw, Square, Volume2, VolumeX } from "lucide-react";
 import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/language";
 import { getCaptureCopy } from "@/lib/agentCopy";
+import { useSpokenCaption } from "@/hooks/use-spoken-caption";
 import waveform from "@/assets/waveform.jpg";
 
 export const Route = createFileRoute("/capture")({
@@ -48,20 +49,63 @@ function Capture() {
 
   // Reveal exchanges one at a time, simulating natural pauses.
   const [visible, setVisible] = useState(0);
+  const [activeExchange, setActiveExchange] = useState<number | null>(null);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [source, setSource] = useState<CaptureSource>("demo");
   const [uploadUrl, setUploadUrl] = useState("");
   const [uploadName, setUploadName] = useState("");
   const [screenStream, setScreenStream] = useState<MediaStream | null>(null);
   const [recordingError, setRecordingError] = useState("");
   const videoRef = useRef<HTMLVideoElement>(null);
+  const sequenceTimers = useRef<number[]>([]);
+  const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
+
   useEffect(() => {
+    cancel();
+    sequenceTimers.current.forEach(window.clearTimeout);
+    sequenceTimers.current = [];
     setVisible(0);
-    const timers = exchanges.map((_, i) =>
-      window.setTimeout(() => setVisible(i + 1), 1200 + i * 2600),
-    );
-    return () => timers.forEach(window.clearTimeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [language.code]);
+    setActiveExchange(null);
+
+    const playExchange = (index: number) => {
+      const exchange = exchanges[index];
+      if (!exchange) return;
+      setActiveExchange(index);
+      setVisible(index + 1);
+
+      const advance = () => {
+        const timer = window.setTimeout(() => playExchange(index + 1), 1500);
+        sequenceTimers.current.push(timer);
+      };
+
+      if (voiceEnabled) {
+        speak(exchange.q, { locale: language.agentLocale, onComplete: advance });
+      } else {
+        advance();
+      }
+    };
+
+    const firstTimer = window.setTimeout(() => playExchange(0), 1200);
+    sequenceTimers.current.push(firstTimer);
+    return () => {
+      sequenceTimers.current.forEach(window.clearTimeout);
+      sequenceTimers.current = [];
+      cancel();
+    };
+  }, [cancel, language.agentLocale, language.code, speak, voiceEnabled]);
+
+  const replayCurrentQuestion = () => {
+    if (activeExchange === null) return;
+    const exchange = exchanges[activeExchange];
+    if (!exchange) return;
+    setVoiceEnabled(true);
+    speak(exchange.q, { locale: language.agentLocale });
+  };
+
+  const toggleVoice = () => {
+    if (voiceEnabled) cancel();
+    setVoiceEnabled((enabled) => !enabled);
+  };
 
   useEffect(() => {
     const video = videoRef.current;
@@ -294,13 +338,36 @@ function Capture() {
                   <div>
                     <p className="text-sm font-semibold">{copy.agentName}</p>
                     <p className="text-[11px] uppercase tracking-[0.2em] text-white/40">
-                      {copy.status} · {language.agentLocale}
+                      {isSpeaking ? "Speaking" : copy.status} · {language.agentLocale}
                     </p>
                   </div>
                 </div>
-                <span className="rounded-full bg-electric/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-electric outline-1 outline-electric/30">
-                  {language.short}
-                </span>
+                <div className="flex items-center gap-1">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={replayCurrentQuestion}
+                    disabled={activeExchange === null}
+                    aria-label="Replay current question"
+                    title="Replay current question"
+                  >
+                    <RotateCcw />
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={toggleVoice}
+                    aria-label={voiceEnabled ? "Mute agent voice" : "Enable agent voice"}
+                    title={voiceEnabled ? "Mute agent voice" : "Enable agent voice"}
+                  >
+                    {voiceEnabled ? <Volume2 /> : <VolumeX />}
+                  </Button>
+                  <span className="rounded-full bg-electric/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-electric outline-1 outline-electric/30">
+                    {language.short}
+                  </span>
+                </div>
               </div>
 
               <div className="relative mt-4 h-24 overflow-hidden rounded-2xl bg-ink/60 outline-1 outline-white/10">
@@ -317,9 +384,12 @@ function Capture() {
               <div className="mt-4 flex-1 space-y-3">
                 {exchanges.slice(0, visible).map((ex, i) => (
                   <div key={i} className="enter-up space-y-2">
-                    <p className="rounded-2xl rounded-tl-md bg-white/5 px-3 py-2 text-[13px] leading-relaxed text-white/80 outline-1 outline-white/10">
+                    <p className="min-h-10 rounded-2xl rounded-tl-md bg-white/5 px-3 py-2 text-[13px] leading-relaxed text-white/80 outline-1 outline-white/10">
                       <span className="mr-1 text-electric/70">Agent:</span>
-                      {ex.q}
+                      {activeExchange === i ? caption || "…" : ex.q}
+                      {activeExchange === i && isSpeaking && (
+                        <span className="ml-1 inline-block h-3 w-px bg-electric pulse-dot" aria-hidden="true" />
+                      )}
                     </p>
                     <p className="ml-8 rounded-2xl rounded-tr-md bg-electric/10 px-3 py-2 text-[13px] leading-relaxed text-white/90 outline-1 outline-electric/25">
                       <span className="mr-1 text-electric/70">Expert:</span>

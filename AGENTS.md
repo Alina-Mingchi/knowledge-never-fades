@@ -11,3 +11,4 @@
 
 - Persist user-created tutor profiles through the shared tutor utility so Map and Teach use one browser-storage contract.
 - Keep the invoice approval threshold in the shared tutorial rules module so Teach behavior and tests cannot drift.
+- Keep browser speech and progressive caption timing in the shared spoken-caption hook so agent surfaces can reuse one playback lifecycle.

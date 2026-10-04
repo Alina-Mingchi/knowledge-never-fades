@@ -16,3 +16,4 @@
 - [x] Name tutors from Map and select them in Teach
 - [x] Make Teach vendor and amount editable and add tutorial completion
 - [x] Verify updated flow, rules, and responsive layouts
+- [x] Add spoken Capture questions with synchronized progressive captions
