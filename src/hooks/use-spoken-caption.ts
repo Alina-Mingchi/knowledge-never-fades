@@ -50,7 +50,7 @@ export function useSpokenCaption() {
       };
 
       if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
-        window.setTimeout(finish, Math.max(1600, text.length * typingDelay));
+        globalThis.setTimeout(finish, Math.max(1600, text.length * typingDelay));
         return;
       }
 
