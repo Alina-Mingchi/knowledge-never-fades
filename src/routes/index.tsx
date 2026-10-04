@@ -30,7 +30,7 @@ function Index() {
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-ink font-body text-white">
       <AmbientBackground />
-      <TopRail part="Part 1 / 3 · Language" />
+      <TopRail part="Homepage" />
 
       {/* Hero: language gate */}
       <section className="relative z-20 px-6 pt-10 pb-16 md:px-12 lg:px-16 lg:pt-16 lg:pb-24">
