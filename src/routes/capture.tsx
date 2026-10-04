@@ -430,6 +430,7 @@ function Capture() {
             </GlassPanel>
           </div>
         </div>
+        )}
       </main>
     </div>
   );
