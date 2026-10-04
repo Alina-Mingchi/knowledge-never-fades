@@ -12,3 +12,4 @@
 - Persist user-created tutor profiles through the shared tutor utility so Map and Teach use one browser-storage contract.
 - Keep the invoice approval threshold in the shared tutorial rules module so Teach behavior and tests cannot drift.
 - Keep browser speech and progressive caption timing in the shared spoken-caption hook so agent surfaces can reuse one playback lifecycle.
+- ElevenLabs agent IDs live only in src/lib/elevenlabs.ts (Capture+Map share one, Teach has its own) and all live sessions go through LiveAgentPanel — keeps agent wiring in one place.
