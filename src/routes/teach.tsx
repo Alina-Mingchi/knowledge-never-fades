@@ -217,7 +217,11 @@ function Teach() {
                       min="0"
                       value={amount}
                       placeholder="0"
-                      onFocus={() => onFieldFocus("amount", 2, copy.coaching[2] ?? "")}
+                      onFocus={() => {
+                        if (requiresManagerApproval(amountValue)) {
+                          onFieldFocus("amount", 2, copy.coaching[2] ?? "");
+                        }
+                      }}
                       onChange={(event) => {
                         setAmount(event.target.value);
                         resetResult();

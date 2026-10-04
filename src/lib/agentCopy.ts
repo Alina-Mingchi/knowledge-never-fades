@@ -207,7 +207,7 @@ const map: Record<string, MapCopy> = {
 const teach: Record<string, TeachCopy> = {
   en: {
     coaching: [
-      "Great — you opened the oldest invoice first, just like the expert.",
+      "Who are you sending the invoice to?",
       "Before you save: which cost center owns this vendor's contract?",
       "Stop — the amount is $12,400. What did the expert say about the limit?",
     ],
@@ -217,7 +217,7 @@ const teach: Record<string, TeachCopy> = {
   },
   de: {
     coaching: [
-      "Gut — du hast zuerst die älteste Rechnung geöffnet, genau wie der Experte.",
+      "An wen geht diese Rechnung?",
       "Bevor du speicherst: welche Kostenstelle besitzt den Vertrag dieses Lieferanten?",
       "Stopp — der Betrag ist 12.400 $. Was hat der Experte über die Grenze gesagt?",
     ],
@@ -227,7 +227,7 @@ const teach: Record<string, TeachCopy> = {
   },
   es: {
     coaching: [
-      "Bien — abriste primero la factura más antigua, igual que el experto.",
+      "¿A quién va dirigida la factura?",
       "Antes de guardar: ¿qué centro de costos posee el contrato de este proveedor?",
       "Alto — el importe es 12.400 $. ¿Qué dijo el experto sobre el límite?",
     ],
@@ -237,7 +237,7 @@ const teach: Record<string, TeachCopy> = {
   },
   fr: {
     coaching: [
-      "Bien — vous avez ouvert la facture la plus ancienne d'abord, comme l'expert.",
+      "À qui est destinée cette facture ?",
       "Avant d'enregistrer : quel centre de coûts détient le contrat de ce fournisseur ?",
       "Stop — le montant est de 12 400 $. Qu'a dit l'expert à propos de la limite ?",
     ],
@@ -247,7 +247,7 @@ const teach: Record<string, TeachCopy> = {
   },
   ja: {
     coaching: [
-      "いいですね — エキスパートと同じように、最初に最も古い請求書を開きました。",
+      "この請求書はどなた宛てですか？",
       "保存する前に：このベンダーの契約を保有するコストセンターはどこですか？",
       "ストップ — 金額は$12,400です。上限についてエキスパートは何と言いましたか？",
     ],
@@ -257,7 +257,7 @@ const teach: Record<string, TeachCopy> = {
   },
   pt: {
     coaching: [
-      "Ótimo — você abriu a fatura mais antiga primeiro, como o especialista.",
+      "Para quem é essa fatura?",
       "Antes de salvar: qual centro de custos detém o contrato deste fornecedor?",
       "Pare — o valor é $12.400. O que o especialista disse sobre o limite?",
     ],
@@ -267,7 +267,7 @@ const teach: Record<string, TeachCopy> = {
   },
   zh: {
     coaching: [
-      "很好，你像专家一样先打开了最早的发票。",
+      "这张发票是开给谁的？",
       "保存前，请判断哪个成本中心负责这家供应商的合同。",
       "请暂停，金额是 $12,400。专家对限额是怎么说的？",
     ],
