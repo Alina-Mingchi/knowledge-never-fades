@@ -213,6 +213,7 @@ function Capture() {
           </Button>
         </div>
 
+        {source && (
         <div className="grid gap-6 lg:grid-cols-12">
           {/* Shared screen */}
           <div className="lg:col-span-7 enter-up" style={{ animationDelay: "0.08s" }}>
