@@ -12,4 +12,9 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Pre-bundle the ElevenLabs SDK with React in one pass; a late re-optimization
+    // otherwise loads a second React copy ("Cannot read properties of null (reading 'useRef')").
+    optimizeDeps: { include: ["@elevenlabs/react", "@elevenlabs/client"] },
+  },
 });
