@@ -169,6 +169,14 @@ function Teach() {
           </h1>
         </div>
 
+        <LiveAgentPanel
+          role="teach"
+          title={`Tutor ${tutors.find((t) => t.id === selectedTutorId)?.name ?? "Mira"}`}
+          onStart={cancel}
+          dynamicVariables={{ module: "teach", tutor_name: tutors.find((t) => t.id === selectedTutorId)?.name ?? "Mira" }}
+          context={`Trainee screen: invoice 5203, vendor "${vendor}", amount $${amount}, cost center ${costCenter}, saved: ${saved ? "yes" : "no"}${blocked ? ", save BLOCKED by guardrail (amount above $10,000 needs manager approval)" : ""}. Expert rule: invoices above $10,000 need manager approval before saving; marketing costs go to cost center 0400, not 4711.`}
+        />
+
         <div className="grid gap-6 lg:grid-cols-12">
           {/* New hire screen */}
           <div className="lg:col-span-7 enter-up" style={{ animationDelay: "0.08s" }}>

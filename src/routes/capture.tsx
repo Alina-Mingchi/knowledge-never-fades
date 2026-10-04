@@ -171,6 +171,14 @@ function Capture() {
           </h1>
         </div>
 
+        <LiveAgentPanel
+          role="captureMap"
+          title="Capture interviewer"
+          onStart={cancel}
+          dynamicVariables={{ module: "capture" }}
+          context="Module: Capture. The expert is processing invoice 4471 from Nordlicht Bürobedarf GmbH, $12,400, changing cost center 4711 to 0400, due Friday. Ask why at natural pauses, including at least one guardrail question (e.g. approval limit above $10,000)."
+        />
+
         <div className="mb-6 grid gap-3 sm:grid-cols-3" aria-label="Capture source">
           <Button
             variant={source === "demo" ? "default" : "outline"}

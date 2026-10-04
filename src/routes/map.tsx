@@ -142,6 +142,14 @@ function MapPage() {
           </h1>
         </div>
 
+        <LiveAgentPanel
+          role="captureMap"
+          title="Debrief & teach-back"
+          onStart={cancel}
+          dynamicVariables={{ module: "map" }}
+          context={`Module: Map debrief. Work Map steps: ${steps.map((st, i) => `${i + 1}. ${JSON.stringify(st)}`).join(" ")}. Ask at least three follow-up questions not answered during capture, then explain the whole process back and ask the expert to confirm or correct it.`}
+        />
+
         {/* Timeline */}
         <div className="enter-up" style={{ animationDelay: "0.06s" }}>
           <div className="relative grid gap-4 md:grid-cols-3">
