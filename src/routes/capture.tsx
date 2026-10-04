@@ -52,7 +52,7 @@ function Capture() {
   const [visible, setVisible] = useState(0);
   const [activeExchange, setActiveExchange] = useState<number | null>(null);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
-  const [source, setSource] = useState<CaptureSource>("demo");
+  const [source, setSource] = useState<CaptureSource | null>(null);
   const [uploadUrl, setUploadUrl] = useState("");
   const [uploadName, setUploadName] = useState("");
   const [screenStream, setScreenStream] = useState<MediaStream | null>(null);
@@ -67,6 +67,7 @@ function Capture() {
     sequenceTimers.current = [];
     setVisible(0);
     setActiveExchange(null);
+    if (source !== "demo") return;
 
     const playExchange = (index: number) => {
       const exchange = exchanges[index];
@@ -93,7 +94,7 @@ function Capture() {
       sequenceTimers.current = [];
       cancel();
     };
-  }, [cancel, language.agentLocale, language.code, speak, voiceEnabled]);
+  }, [cancel, language.agentLocale, language.code, speak, voiceEnabled, source]);
 
   const replayCurrentQuestion = () => {
     if (activeExchange === null) return;
@@ -212,6 +213,7 @@ function Capture() {
           </Button>
         </div>
 
+        {source && (
         <div className="grid gap-6 lg:grid-cols-12">
           {/* Shared screen */}
           <div className="lg:col-span-7 enter-up" style={{ animationDelay: "0.08s" }}>
@@ -314,6 +316,7 @@ function Capture() {
               )}
 
               {/* Detected events */}
+              {source === "demo" && (
               <div className="mt-5">
                 <p className="mb-2 text-[10px] uppercase tracking-[0.2em] text-white/35">
                   Detected events
@@ -333,6 +336,7 @@ function Capture() {
                   ))}
                 </div>
               </div>
+              )}
             </GlassPanel>
           </div>
 
@@ -406,7 +410,7 @@ function Capture() {
                     </p>
                   </div>
                 ))}
-                {visible < exchanges.length && (
+                {source === "demo" && visible < exchanges.length && (
                   <p className="flex items-center gap-2 text-[12px] text-white/35">
                     <span className="h-1.5 w-1.5 rounded-full bg-electric pulse-dot" />
                     Waiting for a natural pause…
@@ -426,6 +430,7 @@ function Capture() {
             </GlassPanel>
           </div>
         </div>
+        )}
       </main>
     </div>
   );
