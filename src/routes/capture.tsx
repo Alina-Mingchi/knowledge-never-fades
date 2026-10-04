@@ -316,6 +316,7 @@ function Capture() {
               )}
 
               {/* Detected events */}
+              {source === "demo" && (
               <div className="mt-5">
                 <p className="mb-2 text-[10px] uppercase tracking-[0.2em] text-white/35">
                   Detected events
@@ -335,10 +336,11 @@ function Capture() {
                   ))}
                 </div>
               </div>
+              )}
             </GlassPanel>
           </div>
 
-          </div>
+          {/* Voice agent side panel */}
           <div className="lg:col-span-5 enter-up" style={{ animationDelay: "0.14s" }}>
             <GlassPanel className="flex h-full flex-col">
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
@@ -408,7 +410,7 @@ function Capture() {
                     </p>
                   </div>
                 ))}
-                {visible < exchanges.length && (
+                {source === "demo" && visible < exchanges.length && (
                   <p className="flex items-center gap-2 text-[12px] text-white/35">
                     <span className="h-1.5 w-1.5 rounded-full bg-electric pulse-dot" />
                     Waiting for a natural pause…
