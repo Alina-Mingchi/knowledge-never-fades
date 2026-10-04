@@ -16,6 +16,8 @@ interface LiveAgentPanelProps {
   onStart?: () => void;
   /** Called to start the scripted (offline) voice walkthrough instead of the live agent. */
   onOfflineStart?: () => void;
+  /** Called whenever the live session becomes active or ends, so the page can mute its scripted voice. */
+  onStatusChange?: (active: boolean) => void;
 }
 
 interface Line {
@@ -32,7 +34,7 @@ export function LiveAgentPanel(props: LiveAgentPanelProps) {
   );
 }
 
-function LiveAgentInner({ role, title, context, dynamicVariables, onStart, onOfflineStart }: LiveAgentPanelProps) {
+function LiveAgentInner({ role, title, context, dynamicVariables, onStart, onOfflineStart, onStatusChange }: LiveAgentPanelProps) {
   const { language } = useLanguage();
   const agentId = getAgentId(role);
   const [lines, setLines] = useState<Line[]>([]);
@@ -52,6 +54,12 @@ function LiveAgentInner({ role, title, context, dynamicVariables, onStart, onOff
 
   const connected = conversation.status === "connected";
   const connecting = conversation.status === "connecting";
+
+  // Let the page mute its scripted voice while the live agent is active.
+  useEffect(() => {
+    onStatusChange?.(connected || connecting);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [connected, connecting]);
 
   // Keep the agent aware of what's on screen.
   useEffect(() => {
