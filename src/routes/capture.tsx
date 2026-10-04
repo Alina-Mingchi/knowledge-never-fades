@@ -174,7 +174,7 @@ function Capture() {
 
         <LiveAgentPanel
           role="captureMap"
-          title="Capture interviewer"
+          title="Capture apprentice"
           onStart={cancel}
           dynamicVariables={{ module: "capture" }}
           context="Module: Capture. The expert is processing invoice 4471 from Nordlicht Bürobedarf GmbH, $12,400, changing cost center 4711 to 0400, due Friday. Ask why at natural pauses, including at least one guardrail question (e.g. approval limit above $10,000)."
@@ -186,7 +186,7 @@ function Capture() {
             onClick={() => chooseSource("demo")}
             className="h-auto justify-start rounded-lg px-4 py-3"
           >
-            <Play /> Current demo
+            <Play /> Toy example demo
           </Button>
           <label
             className={`flex cursor-pointer items-center gap-2 rounded-lg border px-4 py-3 text-sm font-medium transition ${
