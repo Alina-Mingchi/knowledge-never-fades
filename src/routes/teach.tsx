@@ -380,25 +380,19 @@ function Teach() {
               </div>
 
               <div className="mt-auto pt-6">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                <p className="text-xs uppercase tracking-[0.2em] text-white/40">
                   Mastery summary
                 </p>
                 <div className="mt-2 flex items-center gap-3">
-                  <span className="font-display text-3xl">
+                  <span className="font-display text-4xl">
                     {mastered}
-                    <span className="text-base text-white/40">/3</span>
+                    <span className="text-lg text-white/40">/3</span>
                   </span>
-                  <span className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
-                    <span
-                      className="block h-2 rounded-full bg-electric transition-all duration-700"
-                      style={{ width: `${(mastered / 3) * 100}%` }}
-                    />
-                  </span>
-                </div>
-                <p className="mt-2 text-[12px] text-white/50">{copy.masteryNote}</p>
+...
+                <p className="mt-2 text-sm text-white/50">{copy.masteryNote}</p>
                 <Link
                   to="/"
-                  className="mt-5 block rounded-full bg-white/5 px-5 py-3 text-center text-sm font-semibold outline-1 outline-white/15 transition hover:outline-electric/50"
+                  className="mt-5 block rounded-full bg-white/5 px-5 py-3 text-center text-base font-semibold outline-1 outline-white/15 transition hover:outline-electric/50"
                 >
                   ← Change language
                 </Link>
