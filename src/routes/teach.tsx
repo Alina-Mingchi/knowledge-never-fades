@@ -121,7 +121,8 @@ function Teach() {
     setSaved(true);
   };
 
-  const mastered = (costCenter === "0400" ? 2 : 1) + (saved ? 1 : 0);
+  const mastered =
+    (vendor.trim() && amountValue > 0 ? 1 : 0) + (costCenter === "0400" ? 1 : 0) + (saved ? 1 : 0);
 
   if (finished) {
     return (
@@ -177,7 +178,7 @@ function Teach() {
           title={`Tutor ${tutors.find((t) => t.id === selectedTutorId)?.name ?? "Mira"}`}
           onStart={cancel}
           dynamicVariables={{ module: "teach", tutor_name: tutors.find((t) => t.id === selectedTutorId)?.name ?? "Mira" }}
-          context={`Trainee screen: invoice 5203, vendor "${vendor}", amount $${amount}, cost center ${costCenter}, saved: ${saved ? "yes" : "no"}${blocked ? ", save BLOCKED by guardrail (amount above $10,000 needs manager approval)" : ""}. Expert rule: invoices above $10,000 need manager approval before saving; marketing costs go to cost center 0400, not 4711.`}
+          context={`Trainee screen: invoice 5203, vendor "${vendor || "blank"}", amount $${amount || "blank"}, due ${due || "blank"}, cost center ${costCenter || "blank"}, saved: ${saved ? "yes" : "no"}${blocked ? ", save BLOCKED by guardrail (amount above $10,000 needs manager approval)" : ""}. Expert rule: invoices above $10,000 need manager approval before saving; marketing costs go to cost center 0400, not 4711.`}
         />
 
         <div className="grid gap-6 lg:grid-cols-12">
