@@ -48,12 +48,13 @@ export const Route = createFileRoute("/teach")({
 function Teach() {
   const { language } = useLanguage();
   const copy = getTeachCopy(language.code);
-  const [costCenter, setCostCenter] = useState("4711");
+  const [costCenter, setCostCenter] = useState("");
   const [blocked, setBlocked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [finished, setFinished] = useState(false);
-  const [vendor, setVendor] = useState("Brightline Media AG");
-  const [amount, setAmount] = useState("12400");
+  const [vendor, setVendor] = useState("");
+  const [amount, setAmount] = useState("");
+  const [due, setDue] = useState("");
   const [tutors, setTutors] = useState<Tutor[]>([DEFAULT_TUTOR]);
   const [selectedTutorId, setSelectedTutor] = useState(DEFAULT_TUTOR.id);
   const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
@@ -104,6 +105,7 @@ function Teach() {
 
   const amountValue = Number(amount);
   const selectedTutor = tutors.find((tutor) => tutor.id === selectedTutorId) ?? DEFAULT_TUTOR;
+  const formComplete = Boolean(vendor.trim() && amount && amountValue > 0 && costCenter && due);
 
   const resetResult = () => {
     setBlocked(false);
@@ -119,7 +121,8 @@ function Teach() {
     setSaved(true);
   };
 
-  const mastered = (costCenter === "0400" ? 2 : 1) + (saved ? 1 : 0);
+  const mastered =
+    (vendor.trim() && amountValue > 0 ? 1 : 0) + (costCenter === "0400" ? 1 : 0) + (saved ? 1 : 0);
 
   if (finished) {
     return (
@@ -175,7 +178,7 @@ function Teach() {
           title={`Tutor ${tutors.find((t) => t.id === selectedTutorId)?.name ?? "Mira"}`}
           onStart={cancel}
           dynamicVariables={{ module: "teach", tutor_name: tutors.find((t) => t.id === selectedTutorId)?.name ?? "Mira" }}
-          context={`Trainee screen: invoice 5203, vendor "${vendor}", amount $${amount}, cost center ${costCenter}, saved: ${saved ? "yes" : "no"}${blocked ? ", save BLOCKED by guardrail (amount above $10,000 needs manager approval)" : ""}. Expert rule: invoices above $10,000 need manager approval before saving; marketing costs go to cost center 0400, not 4711.`}
+          context={`Trainee screen: invoice 5203, vendor "${vendor || "blank"}", amount $${amount || "blank"}, due ${due || "blank"}, cost center ${costCenter || "blank"}, saved: ${saved ? "yes" : "no"}${blocked ? ", save BLOCKED by guardrail (amount above $10,000 needs manager approval)" : ""}. Expert rule: invoices above $10,000 need manager approval before saving; marketing costs go to cost center 0400, not 4711.`}
         />
 
         <div className="grid gap-6 lg:grid-cols-12">
@@ -183,45 +186,59 @@ function Teach() {
           <div className="lg:col-span-7 enter-up" style={{ animationDelay: "0.08s" }}>
             <GlassPanel className="h-full">
               <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <span className="text-[11px] uppercase tracking-[0.2em] text-white/40">
+                <span className="text-xs uppercase tracking-[0.2em] text-white/40">
                   New hire's screen · ledger app
                 </span>
-                <span className="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-electric/80">
+                <span className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-electric/80">
                   <span className="h-2 w-2 rounded-full bg-electric pulse-dot" /> tutor watching
                 </span>
               </div>
 
               <div className="mt-5 rounded-2xl bg-ink/60 p-5 outline-1 outline-white/10">
-                <p className="font-display text-2xl tracking-tight">Invoice #5203</p>
+                <p className="font-display text-3xl tracking-tight">Invoice #5203</p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  <label className="rounded-xl bg-white/5 p-3 outline-1 outline-white/10">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">Vendor</span>
+                  <label className="rounded-xl bg-white/5 p-4 outline-1 outline-white/10">
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/40">Vendor</span>
                     <Input
                       value={vendor}
+                      placeholder="e.g. Brightline Media AG"
                       onFocus={() => onFieldFocus("vendor", 0, copy.coaching[0] ?? "")}
                       onChange={(event) => {
                         setVendor(event.target.value);
                         resetResult();
                       }}
-                      className="mt-1 h-8 border-0 bg-transparent px-0 shadow-none"
+                      className="mt-1 h-11 border-0 bg-transparent px-0 text-base shadow-none"
                     />
                   </label>
-                  <label className="rounded-xl bg-white/5 p-3 outline-1 outline-white/10">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">Amount ($)</span>
+                  <label className="rounded-xl bg-white/5 p-4 outline-1 outline-white/10">
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/40">Amount ($)</span>
                     <Input
                       type="number"
                       min="0"
                       value={amount}
+                      placeholder="0"
                       onFocus={() => onFieldFocus("amount", 2, copy.coaching[2] ?? "")}
                       onChange={(event) => {
                         setAmount(event.target.value);
                         resetResult();
                       }}
-                      className="mt-1 h-8 border-0 bg-transparent px-0 text-electric shadow-none"
+                      className="mt-1 h-11 border-0 bg-transparent px-0 text-base text-electric shadow-none"
                     />
                   </label>
-                  <label className="rounded-xl bg-white/5 p-3 outline-1 outline-electric/40 sm:col-span-2">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                  <label className="rounded-xl bg-white/5 p-4 outline-1 outline-white/10">
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/40">Due date</span>
+                    <Input
+                      type="date"
+                      value={due}
+                      onChange={(event) => {
+                        setDue(event.target.value);
+                        resetResult();
+                      }}
+                      className="mt-1 h-11 border-0 bg-transparent px-0 text-base shadow-none"
+                    />
+                  </label>
+                  <label className="rounded-xl bg-white/5 p-4 outline-1 outline-electric/40">
+                    <span className="text-xs uppercase tracking-[0.2em] text-white/40">
                       Cost center
                     </span>
                     <select
@@ -231,10 +248,15 @@ function Teach() {
                         setCostCenter(e.target.value);
                         resetResult();
                       }}
-                      className="mt-1 block w-full rounded-md bg-ink px-2 py-1.5 text-sm outline-1 outline-white/15"
+                      className="mt-1 block w-full rounded-md bg-ink px-3 py-2.5 text-base outline-1 outline-white/15"
                     >
+                      <option value="" disabled>
+                        Select cost center
+                      </option>
                       <option value="4711">4711 · General admin</option>
                       <option value="0400">0400 · Marketing</option>
+                      <option value="3592">3592 · Finance</option>
+                      <option value="3407">3407 · R&D</option>
                     </select>
                   </label>
                 </div>
@@ -243,7 +265,7 @@ function Teach() {
               <div className="mt-5 flex flex-wrap gap-3">
                 <Button
                   onClick={trySave}
-                  disabled={saved || !vendor.trim() || !amount || amountValue < 0}
+                  disabled={saved || !formComplete}
                   variant="outline"
                   className="h-11 rounded-full px-6"
                 >
@@ -269,18 +291,18 @@ function Teach() {
 
               {blocked && (
                 <div className="enter-up mt-5 rounded-2xl bg-destructive/15 p-4 outline-1 outline-destructive/60">
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-destructive">
+                  <p className="text-xs uppercase tracking-[0.2em] text-destructive">
                     Save blocked · guardrail
                   </p>
-                  <p className="mt-1 text-[14px] leading-relaxed">{copy.guardrailAlert}</p>
-                  <p className="mt-3 rounded-xl bg-ink/60 p-3 text-[13px] italic text-electric/90 outline-1 outline-white/10">
+                  <p className="mt-1 text-base leading-relaxed">{copy.guardrailAlert}</p>
+                  <p className="mt-3 rounded-xl bg-ink/60 p-3 text-sm italic text-electric/90 outline-1 outline-white/10">
                     ▶ Expert replay · 01:12 — "Anything above $10,000 — I always check with the
                     manager first."
                   </p>
                 </div>
               )}
               {saved && (
-                <p className="enter-up mt-5 flex items-center gap-2 text-[13px] text-electric">
+                <p className="enter-up mt-5 flex items-center gap-2 text-sm text-electric">
                   <span className="h-2 w-2 rounded-full bg-electric" /> Saved after manager
                   approval.
                 </p>
@@ -297,19 +319,19 @@ function Teach() {
                     <span className="h-2 w-2 rounded-full bg-electric pulse-dot" />
                   </span>
                   <div>
-                    <p className="text-sm font-semibold">{selectedTutor.name}</p>
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-white/40">
+                    <p className="text-base font-semibold">{selectedTutor.name}</p>
+                    <p className="text-xs uppercase tracking-[0.2em] text-white/40">
                       Coaching · {language.agentLocale}
                     </p>
                   </div>
                 </div>
-                <span className="rounded-full bg-electric/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-electric outline-1 outline-electric/30">
+                <span className="rounded-full bg-electric/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-electric outline-1 outline-electric/30">
                   {language.short}
                 </span>
               </div>
 
               <label className="mt-4 block">
-                <span className="mb-2 block text-[10px] uppercase tracking-[0.2em] text-white/40">
+                <span className="mb-2 block text-xs uppercase tracking-[0.2em] text-white/40">
                   Select tutor
                 </span>
                 <Select
@@ -319,7 +341,7 @@ function Teach() {
                     setSelectedTutorId(value);
                   }}
                 >
-                  <SelectTrigger className="h-10 bg-ink/60">
+                  <SelectTrigger className="h-11 bg-ink/60 text-base">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -338,7 +360,7 @@ function Teach() {
                   return (
                     <p
                       key={i}
-                      className={`rounded-2xl rounded-tl-md px-3 py-2 text-[13px] leading-relaxed outline-1 transition ${
+                      className={`rounded-2xl rounded-tl-md px-4 py-3 text-sm leading-relaxed outline-1 transition ${
                         i === 2 && blocked
                           ? "bg-destructive/15 outline-destructive/50"
                           : isActive
@@ -348,7 +370,7 @@ function Teach() {
                     >
                       {isActive ? caption : c}
                       {isActive && (
-                        <span className="ml-2 inline-flex items-center gap-1 align-middle text-[10px] uppercase tracking-[0.2em] text-electric">
+                        <span className="ml-2 inline-flex items-center gap-1 align-middle text-xs uppercase tracking-[0.2em] text-electric">
                           <Volume2 className="h-3 w-3" /> speaking
                         </span>
                       )}
@@ -358,13 +380,13 @@ function Teach() {
               </div>
 
               <div className="mt-auto pt-6">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                <p className="text-xs uppercase tracking-[0.2em] text-white/40">
                   Mastery summary
                 </p>
                 <div className="mt-2 flex items-center gap-3">
-                  <span className="font-display text-3xl">
+                  <span className="font-display text-4xl">
                     {mastered}
-                    <span className="text-base text-white/40">/3</span>
+                    <span className="text-lg text-white/40">/3</span>
                   </span>
                   <span className="h-2 flex-1 overflow-hidden rounded-full bg-white/10">
                     <span
@@ -373,10 +395,10 @@ function Teach() {
                     />
                   </span>
                 </div>
-                <p className="mt-2 text-[12px] text-white/50">{copy.masteryNote}</p>
+                <p className="mt-2 text-sm text-white/50">{copy.masteryNote}</p>
                 <Link
                   to="/"
-                  className="mt-5 block rounded-full bg-white/5 px-5 py-3 text-center text-sm font-semibold outline-1 outline-white/15 transition hover:outline-electric/50"
+                  className="mt-5 block rounded-full bg-white/5 px-5 py-3 text-center text-base font-semibold outline-1 outline-white/15 transition hover:outline-electric/50"
                 >
                   ← Change language
                 </Link>
