@@ -232,7 +232,10 @@ function MapPage() {
                   type="button"
                   variant="ghost"
                   size="icon"
-                  onClick={() => setNarrationRun((run) => run + 1)}
+                  onClick={() => {
+                    if (activeSpeech === map.debriefQuestions.length) speakTeachBack();
+                    else if (activeSpeech !== null) speakQuestion(activeSpeech);
+                  }}
                   aria-label="Replay spoken debrief"
                   title="Replay spoken debrief"
                 >
