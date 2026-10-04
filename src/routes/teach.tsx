@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { LiveAgentPanel } from "@/components/LiveAgentPanel";
 import { CheckCircle2, RotateCcw, Volume2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useSpokenCaption } from "@/hooks/use-spoken-caption";

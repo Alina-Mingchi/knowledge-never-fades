@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { LiveAgentPanel } from "@/components/LiveAgentPanel";
 import { useEffect, useRef, useState } from "react";
 import { RotateCcw, Volume2 } from "lucide-react";
 import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
