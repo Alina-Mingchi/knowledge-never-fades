@@ -49,49 +49,36 @@ function MapPage() {
   const [visibleQuestions, setVisibleQuestions] = useState(0);
   const [activeSpeech, setActiveSpeech] = useState<number | null>(null);
   const [teachBackVisible, setTeachBackVisible] = useState(false);
-  const [narrationRun, setNarrationRun] = useState(0);
-  const sequenceTimers = useRef<number[]>([]);
   const { caption, isSpeaking, speak, cancel } = useSpokenCaption();
   const navigate = useNavigate();
 
+  const speakQuestion = (index: number) => {
+    const text = map.debriefQuestions[index];
+    if (!text) return;
+    setActiveSpeech(index);
+    setVisibleQuestions((count) => Math.max(count, index + 1));
+    speak(text, {
+      locale: language.agentLocale,
+      onComplete: () => setActiveSpeech(null),
+    });
+  };
+
+  const speakTeachBack = () => {
+    setTeachBackVisible(true);
+    setActiveSpeech(map.debriefQuestions.length);
+    speak(map.teachBack, {
+      locale: language.agentLocale,
+      onComplete: () => setActiveSpeech(null),
+    });
+  };
+
   useEffect(() => {
     cancel();
-    sequenceTimers.current.forEach(window.clearTimeout);
-    sequenceTimers.current = [];
     setVisibleQuestions(0);
     setActiveSpeech(null);
     setTeachBackVisible(false);
-
-    const playLine = (index: number) => {
-      const isTeachBack = index === map.debriefQuestions.length;
-      const text = isTeachBack ? map.teachBack : map.debriefQuestions[index];
-      if (!text) return;
-
-      setActiveSpeech(index);
-      if (isTeachBack) setTeachBackVisible(true);
-      else setVisibleQuestions(index + 1);
-
-      speak(text, {
-        locale: language.agentLocale,
-        onComplete: () => {
-          if (isTeachBack) {
-            setActiveSpeech(null);
-            return;
-          }
-          const timer = window.setTimeout(() => playLine(index + 1), 900);
-          sequenceTimers.current.push(timer);
-        },
-      });
-    };
-
-    const firstTimer = window.setTimeout(() => playLine(0), 900);
-    sequenceTimers.current.push(firstTimer);
-    return () => {
-      sequenceTimers.current.forEach(window.clearTimeout);
-      sequenceTimers.current = [];
-      cancel();
-    };
-  }, [cancel, language.agentLocale, language.code, map.debriefQuestions, map.teachBack, narrationRun, speak]);
+    return () => cancel();
+  }, [cancel, language.agentLocale, language.code]);
 
   const createTutor = () => {
     const tutor = saveTutor(tutorName, language.code);
@@ -164,7 +151,10 @@ function MapPage() {
               return (
                 <button
                   key={i}
-                  onClick={() => setActive(i)}
+                  onClick={() => {
+                    setActive(i);
+                    speakQuestion(i);
+                  }}
                   className={`relative rounded-3xl p-5 text-left backdrop-blur-xl transition outline-1 ${
                     isActive
                       ? isGuard
@@ -185,6 +175,16 @@ function MapPage() {
                 </button>
               );
             })}
+          </div>
+          <div className="mt-4 flex justify-center">
+            <Button
+              type="button"
+              onClick={speakTeachBack}
+              className="group relative h-11 overflow-hidden rounded-full px-8 font-bold"
+            >
+              <span className="relative z-10">Summary</span>
+              <span className="sheen absolute inset-0 z-0 w-1/2 bg-gradient-to-r from-transparent via-white/50 to-transparent" />
+            </Button>
           </div>
         </div>
 
@@ -232,7 +232,10 @@ function MapPage() {
                   type="button"
                   variant="ghost"
                   size="icon"
-                  onClick={() => setNarrationRun((run) => run + 1)}
+                  onClick={() => {
+                    if (activeSpeech === map.debriefQuestions.length) speakTeachBack();
+                    else if (activeSpeech !== null) speakQuestion(activeSpeech);
+                  }}
                   aria-label="Replay spoken debrief"
                   title="Replay spoken debrief"
                 >
