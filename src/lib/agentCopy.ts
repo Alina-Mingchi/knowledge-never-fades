@@ -135,7 +135,7 @@ const capture: Record<string, CaptureCopy> = {
 const map: Record<string, MapCopy> = {
   en: {
     debriefQuestions: [
-      "When would you reject invoice 4471 instead of booking it?",
+      "Which invoice did you open?",
       "Who do you ask when the amount is over $10,000?",
       "What do you check before you press save?",
     ],
@@ -145,7 +145,7 @@ const map: Record<string, MapCopy> = {
   },
   de: {
     debriefQuestions: [
-      "Wann würdest du Rechnung 4471 ablehnen statt sie zu buchen?",
+      "Welche Rechnung hast du geöffnet?",
       "Wen fragst du, wenn der Betrag über 10.000 $ liegt?",
       "Was prüfst du, bevor du auf Speichern drückst?",
     ],
@@ -155,7 +155,7 @@ const map: Record<string, MapCopy> = {
   },
   es: {
     debriefQuestions: [
-      "¿Cuándo rechazarías la factura 4471 en lugar de contabilizarla?",
+      "¿Qué factura abriste?",
       "¿A quién preguntas cuando el importe supera los 10.000 $?",
       "¿Qué revisas antes de pulsar guardar?",
     ],
@@ -165,7 +165,7 @@ const map: Record<string, MapCopy> = {
   },
   fr: {
     debriefQuestions: [
-      "Quand rejetteriez-vous la facture 4471 au lieu de la comptabiliser ?",
+      "Quelle facture avez-vous ouverte ?",
       "Qui consultez-vous quand le montant dépasse 10 000 $ ?",
       "Que vérifiez-vous avant d'appuyer sur enregistrer ?",
     ],
@@ -175,7 +175,7 @@ const map: Record<string, MapCopy> = {
   },
   ja: {
     debriefQuestions: [
-      "請求書4471を計上せず却下するのはどんな場合ですか？",
+      "どの請求書を開きましたか？",
       "金額が$10,000を超える場合、誰に確認しますか？",
       "保存を押す前に何を確認しますか？",
     ],
@@ -185,7 +185,7 @@ const map: Record<string, MapCopy> = {
   },
   pt: {
     debriefQuestions: [
-      "Quando você rejeitaria a fatura 4471 em vez de lançá-la?",
+      "Qual fatura você abriu?",
       "Quem você consulta quando o valor passa de $10.000?",
       "O que você verifica antes de pressionar salvar?",
     ],
@@ -195,7 +195,7 @@ const map: Record<string, MapCopy> = {
   },
   zh: {
     debriefQuestions: [
-      "什么情况下你会拒绝发票 4471，而不是将其入账？",
+      "你打开的是哪张发票？",
       "金额超过 $10,000 时，你会请示谁？",
       "点击保存之前，你会检查什么？",
     ],
