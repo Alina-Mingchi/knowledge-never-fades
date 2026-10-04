@@ -53,6 +53,7 @@ function Capture() {
   const [activeExchange, setActiveExchange] = useState<number | null>(null);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [source, setSource] = useState<CaptureSource | null>(null);
+  const [demoRun, setDemoRun] = useState(0);
   const [uploadUrl, setUploadUrl] = useState("");
   const [uploadName, setUploadName] = useState("");
   const [screenStream, setScreenStream] = useState<MediaStream | null>(null);
@@ -94,7 +95,7 @@ function Capture() {
       sequenceTimers.current = [];
       cancel();
     };
-  }, [cancel, language.agentLocale, language.code, speak, voiceEnabled, source]);
+  }, [cancel, language.agentLocale, language.code, speak, voiceEnabled, source, demoRun]);
 
   const replayCurrentQuestion = () => {
     if (activeExchange === null) return;
@@ -177,6 +178,11 @@ function Capture() {
           role="captureMap"
           title="Capture apprentice"
           onStart={cancel}
+          onOfflineStart={() => {
+            setVoiceEnabled(true);
+            setSource("demo");
+            setDemoRun((n) => n + 1);
+          }}
           dynamicVariables={{ module: "capture" }}
           context="Module: Capture. The expert is processing invoice 4471 from Nordlicht Bürobedarf GmbH, $12,400, changing cost center 4711 to 0400, due Friday. Ask why at natural pauses, including at least one guardrail question (e.g. approval limit above $10,000)."
         />

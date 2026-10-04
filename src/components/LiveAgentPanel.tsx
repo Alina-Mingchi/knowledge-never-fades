@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ConversationProvider, useConversation } from "@elevenlabs/react";
-import { Mic, PhoneOff } from "lucide-react";
+import { AudioLines, Mic, PhoneOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GlassPanel } from "@/components/chrome";
 import { useLanguage } from "@/lib/language";
@@ -14,6 +14,8 @@ interface LiveAgentPanelProps {
   dynamicVariables?: Record<string, string | number | boolean>;
   /** Called when the live session starts, so the page can silence its scripted voice. */
   onStart?: () => void;
+  /** Called to start the scripted (offline) voice walkthrough instead of the live agent. */
+  onOfflineStart?: () => void;
 }
 
 interface Line {
@@ -30,7 +32,7 @@ export function LiveAgentPanel(props: LiveAgentPanelProps) {
   );
 }
 
-function LiveAgentInner({ role, title, context, dynamicVariables, onStart }: LiveAgentPanelProps) {
+function LiveAgentInner({ role, title, context, dynamicVariables, onStart, onOfflineStart }: LiveAgentPanelProps) {
   const { language } = useLanguage();
   const agentId = getAgentId(role);
   const [lines, setLines] = useState<Line[]>([]);
@@ -103,9 +105,16 @@ function LiveAgentInner({ role, title, context, dynamicVariables, onStart }: Liv
             <PhoneOff className="mr-2 h-4 w-4" /> End conversation
           </Button>
         ) : (
-          <Button onClick={start} disabled={!agentId}>
-            <Mic className="mr-2 h-4 w-4" /> Start live conversation
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            <Button onClick={start} disabled={!agentId}>
+              <Mic className="mr-2 h-4 w-4" /> Start live conversation
+            </Button>
+            {onOfflineStart && (
+              <Button variant="outline" onClick={onOfflineStart}>
+                <AudioLines className="mr-2 h-4 w-4" /> Start offline conversation
+              </Button>
+            )}
+          </div>
         )}
       </div>
       {error && <p className="mt-3 text-sm text-destructive">{error}</p>}
