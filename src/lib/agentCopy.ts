@@ -18,6 +18,7 @@ export interface MapCopy {
 }
 
 export interface TeachCopy {
+  tutorialGreeting: string;
   coaching: string[];
   guardrailAlert: string;
   masteryNote: string;
@@ -206,6 +207,7 @@ const map: Record<string, MapCopy> = {
 
 const teach: Record<string, TeachCopy> = {
   en: {
+    tutorialGreeting: "Let's start the tutorial on how to send an invoice.",
     coaching: [
       "Who are you sending the invoice to?",
       "Before you save: which cost center owns this vendor's contract?",
@@ -216,6 +218,7 @@ const teach: Record<string, TeachCopy> = {
     masteryNote: "Guardrail awareness needs a second pass.",
   },
   de: {
+    tutorialGreeting: "Beginnen wir mit dem Tutorial zum Senden einer Rechnung.",
     coaching: [
       "An wen geht diese Rechnung?",
       "Bevor du speicherst: welche Kostenstelle besitzt den Vertrag dieses Lieferanten?",
@@ -226,6 +229,7 @@ const teach: Record<string, TeachCopy> = {
     masteryNote: "Guardrail-Bewusstsein braucht einen zweiten Durchlauf.",
   },
   es: {
+    tutorialGreeting: "Empecemos el tutorial sobre cómo enviar una factura.",
     coaching: [
       "¿A quién va dirigida la factura?",
       "Antes de guardar: ¿qué centro de costos posee el contrato de este proveedor?",
@@ -236,6 +240,7 @@ const teach: Record<string, TeachCopy> = {
     masteryNote: "La atención a los guardrails necesita una segunda pasada.",
   },
   fr: {
+    tutorialGreeting: "Commençons le tutoriel sur l'envoi d'une facture.",
     coaching: [
       "À qui est destinée cette facture ?",
       "Avant d'enregistrer : quel centre de coûts détient le contrat de ce fournisseur ?",
@@ -246,6 +251,7 @@ const teach: Record<string, TeachCopy> = {
     masteryNote: "La vigilance aux garde-fous nécessite un second passage.",
   },
   ja: {
+    tutorialGreeting: "請求書の送り方のチュートリアルを始めましょう。",
     coaching: [
       "この請求書はどなた宛てですか？",
       "保存する前に：このベンダーの契約を保有するコストセンターはどこですか？",
@@ -256,6 +262,7 @@ const teach: Record<string, TeachCopy> = {
     masteryNote: "ガードレールへの意識はもう一度練習が必要です。",
   },
   pt: {
+    tutorialGreeting: "Vamos começar o tutorial de como enviar uma fatura.",
     coaching: [
       "Para quem é essa fatura?",
       "Antes de salvar: qual centro de custos detém o contrato deste fornecedor?",
@@ -266,6 +273,7 @@ const teach: Record<string, TeachCopy> = {
     masteryNote: "A atenção aos guardrails precisa de uma segunda passada.",
   },
   zh: {
+    tutorialGreeting: "我们开始学习如何发送发票吧。",
     coaching: [
       "这张发票是开给谁的？",
       "保存前，请判断哪个成本中心负责这家供应商的合同。",
