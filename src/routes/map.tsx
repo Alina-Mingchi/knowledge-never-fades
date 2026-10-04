@@ -151,7 +151,10 @@ function MapPage() {
               return (
                 <button
                   key={i}
-                  onClick={() => setActive(i)}
+                  onClick={() => {
+                    setActive(i);
+                    speakQuestion(i);
+                  }}
                   className={`relative rounded-3xl p-5 text-left backdrop-blur-xl transition outline-1 ${
                     isActive
                       ? isGuard
