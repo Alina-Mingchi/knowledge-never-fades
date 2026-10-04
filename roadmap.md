@@ -17,3 +17,4 @@
 - [x] Make Teach vendor and amount editable and add tutorial completion
 - [x] Verify updated flow, rules, and responsive layouts
 - [x] Add spoken Capture questions with synchronized progressive captions
+- [x] Add spoken Map debrief questions and teach-back with synchronized captions
