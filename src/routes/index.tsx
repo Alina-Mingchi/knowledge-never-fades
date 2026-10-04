@@ -1,7 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AmbientBackground, TopRail, GlassPanel } from "@/components/chrome";
 import { LANGUAGES, useLanguage } from "@/lib/language";
-import waveform from "@/assets/waveform.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,26 +34,24 @@ function Index() {
 
       {/* Hero: language gate */}
       <section className="relative z-20 px-6 pt-10 pb-16 md:px-12 lg:px-16 lg:pt-16 lg:pb-24">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
-          {/* Left: headline + picker */}
-          <div className="relative lg:col-span-7">
+        <div className="relative max-w-3xl">
             <div
               className="absolute -top-8 -left-6 h-40 w-40 rotate-45 rounded-3xl bg-gradient-to-br from-electric/20 to-primary/10 outline-1 outline-electric/20 drift-b"
               aria-hidden="true"
             />
-            <p className="enter-up relative mb-5 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.3em] text-electric/90">
-              <span className="h-px w-8 bg-electric/60" /> Step one · Set the voice
-            </p>
             <h1
-              className="enter-up relative font-display text-[clamp(2.9rem,7.5vw,6rem)] leading-[0.9] tracking-tight"
+              className="enter-up relative font-display text-[clamp(2rem,5.2vw,3.9rem)] leading-[0.95] tracking-tight"
               style={{ animationDelay: "0.05s" }}
             >
-              Pick the language
+              Actively learning apprentice
               <br />
-              your agents will
+              for the experienced +
               <br />
-              <span className="text-electric">speak.</span>
+              <span className="text-electric">Patient tutor for the new hire</span>
             </h1>
+            <p className="enter-up relative mt-5 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.3em] text-electric/90">
+              <span className="h-px w-8 bg-electric/60" /> Step one · Set the voice
+            </p>
             <p
               className="enter-up relative mt-6 max-w-md text-[15px] leading-relaxed text-white/55"
               style={{ animationDelay: "0.1s" }}
@@ -102,65 +99,6 @@ function Index() {
               </span>
             </div>
           </div>
-
-          {/* Right: agent preview card */}
-          <div className="enter-up relative lg:col-span-5" style={{ animationDelay: "0.12s" }}>
-            <div
-              className="absolute -top-6 -right-4 h-28 w-28 rotate-45 rounded-2xl bg-gradient-to-br from-accent/30 to-transparent outline-1 outline-accent/30 drift-a"
-              aria-hidden="true"
-            />
-            <GlassPanel>
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <div className="flex items-center gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-full bg-electric/15 outline-1 outline-electric/30">
-                    <span className="h-2 w-2 rounded-full bg-electric" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-white">Mira · Voice agent</p>
-                    <p className="text-[11px] uppercase tracking-[0.2em] text-white/40">
-                      Live preview
-                    </p>
-                  </div>
-                </div>
-                <span className="rounded-full bg-electric/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-electric outline-1 outline-electric/30">
-                  {language.short}
-                </span>
-              </div>
-
-              <div className="relative mt-5 overflow-hidden rounded-2xl bg-ink/60 outline-1 outline-white/10">
-                <img
-                  src={waveform}
-                  alt="Agent voice waveform"
-                  width={1088}
-                  height={608}
-                  className="aspect-[16/9] w-full object-cover"
-                />
-                <div className="absolute bottom-3 left-3 flex items-end gap-1">
-                  <span className="h-4 w-1 rounded-full bg-electric/80 pulse-dot" />
-                  <span
-                    className="h-6 w-1 rounded-full bg-electric/60 pulse-dot"
-                    style={{ animationDelay: "0.2s" }}
-                  />
-                  <span
-                    className="h-3 w-1 rounded-full bg-electric/80 pulse-dot"
-                    style={{ animationDelay: "0.4s" }}
-                  />
-                </div>
-              </div>
-
-              <p className="mt-4 text-[14px] leading-relaxed text-white/70">
-                "Got it — I'll answer every question in{" "}
-                <span className="text-electric">{language.label}</span> and keep the
-                tone warm and precise. Ready when you are."
-              </p>
-
-              <div className="mt-4 flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-white/35">
-                <span>Latency 240ms</span>
-                <span className="text-electric/70">↑ handoff to next part</span>
-              </div>
-            </GlassPanel>
-          </div>
-        </div>
       </section>
 
       {/* Module entry cards */}
